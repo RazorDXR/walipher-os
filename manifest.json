@@ -1,6 +1,7 @@
 {
   "name": "Walipher OS",
   "short_name": "Walipher",
+  "start_url": "./index.html",
   "display": "standalone",
   "description": "Tu sistema operativo personal de productividad.",
   "icons": [
