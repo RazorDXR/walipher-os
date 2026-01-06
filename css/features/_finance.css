@@ -1,0 +1,397 @@
+/* Finance Dashboard */
+.fin-dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.fin-card {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.4));
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.fin-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.fin-card:active {
+    transform: scale(0.98);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.fin-card.full-width {
+    grid-column: span 2;
+    background: linear-gradient(135deg, rgba(8, 47, 73, 0.6), rgba(15, 23, 42, 0.8));
+    border-color: rgba(56, 189, 248, 0.3);
+    box-shadow: 0 10px 30px -10px rgba(56, 189, 248, 0.15);
+}
+
+.fin-title {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.fin-amount {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+}
+
+.fin-amount.main {
+    font-size: 2rem;
+    color: var(--cyan);
+    text-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+}
+
+.fin-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.ind-cash {
+    background: var(--green);
+    box-shadow: 0 0 10px var(--green);
+}
+
+.ind-debit {
+    background: var(--cyan);
+    box-shadow: 0 0 10px var(--cyan);
+}
+
+.ind-credit {
+    background: var(--purple);
+    box-shadow: 0 0 10px var(--purple);
+}
+
+/* Actions */
+.finance-actions-bar {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.btn-main-action {
+    flex: 1;
+    padding: 15px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.2));
+    color: #e2e8f0;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-main-action:hover {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+}
+
+.btn-income {
+    border-top: 1px solid rgba(34, 197, 94, 0.4);
+    box-shadow: 0 4px 20px -5px rgba(34, 197, 94, 0.15);
+}
+
+.btn-income:hover {
+    border-color: var(--green);
+    color: var(--green);
+    background: rgba(34, 197, 94, 0.1);
+}
+
+.btn-expense {
+    border-top: 1px solid rgba(248, 113, 113, 0.4);
+    box-shadow: 0 4px 20px -5px rgba(248, 113, 113, 0.15);
+}
+
+.btn-expense:hover {
+    border-color: var(--red);
+    color: var(--red);
+}
+
+/* Pending Section */
+.pending-section {
+    background: rgba(15, 23, 42, 0.4);
+    border-radius: 18px;
+    padding: 20px;
+    border: 1px solid var(--glass-border);
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+.section-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total-pending {
+    color: var(--red);
+    font-family: 'JetBrains Mono';
+}
+
+.pending-input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    background: rgba(15, 23, 42, 0.4);
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.btn-add-pending {
+    background: var(--cyan);
+    color: #0f172a;
+    border: none;
+    width: 45px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: 700;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+}
+
+.btn-add-pending:hover {
+    transform: scale(1.05);
+    background: #7dd3fc;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+}
+
+.pending-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pending-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    padding: 15px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.pending-item:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.pending-content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+}
+
+.pending-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.pending-desc {
+    font-weight: 500;
+    font-size: 1rem;
+    color: #e2e8f0;
+}
+
+.pending-date {
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+.carry-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--red);
+    border-radius: 50%;
+    margin-left: 8px;
+    box-shadow: 0 0 5px var(--red);
+}
+
+.pending-cost {
+    font-family: 'JetBrains Mono';
+    font-weight: 700;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.pay-options {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 0;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pending-item.active .pay-options {
+    max-height: 500px;
+    margin-top: 15px;
+    opacity: 1;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pay-options-title {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.pay-buttons-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+}
+
+.btn-pay-opt {
+    border: 1px solid transparent;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    background: rgba(0, 0, 0, 0.2);
+    color: #cbd5e1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-pay-opt:hover {
+    transform: translateY(-2px);
+}
+
+.opt-cash:hover {
+    background: rgba(34, 197, 94, 0.2);
+    border-color: var(--green);
+    color: var(--green);
+}
+
+.opt-debit:hover {
+    background: rgba(56, 189, 248, 0.2);
+    border-color: var(--cyan);
+    color: var(--cyan);
+}
+
+.opt-credit:hover {
+    background: rgba(139, 92, 246, 0.2);
+    border-color: var(--purple);
+    color: var(--purple);
+}
+
+/* History */
+.history-section {
+    border-top: 1px solid var(--glass-border);
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.history-list {
+    font-size: 0.85rem;
+    max-height: 150px;
+    overflow-y: auto;
+    color: #94a3b8;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.hist-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+}
+
+@media (max-width: 700px) {
+    .fin-dashboard {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .fin-card.full-width {
+        grid-column: span 2;
+    }
+
+    .pending-input-group {
+        flex-direction: column;
+    }
+
+    .pending-input-group input {
+        width: 100% !important;
+        flex: none !important;
+        text-align: center;
+    }
+
+    #pend-amount {
+        text-align: center;
+    }
+
+    .btn-add-pending {
+        width: 100%;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+
+    .pay-buttons-row {
+        flex-direction: column;
+    }
+
+    .finance-actions-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

@@ -1,0 +1,11 @@
+:root {
+    --cyan: #38bdf8;
+    --purple: #8b5cf6;
+    --dark-bg: #020617;
+    --glass-bg-low: rgba(15, 23, 42, 0.5);
+    --glass-bg-high: rgba(30, 41, 59, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shine: linear-gradient(to bottom right, rgba(255, 255, 255, 0.15) 0%, transparent 50%, transparent 100%);
+    --red: #ef4444;
+    --green: #22c55e;
+}

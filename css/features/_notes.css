@@ -1,0 +1,110 @@
+/* Pinned Notes */
+#pinned-notes-section {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.note-preview-card {
+    width: 100%;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    border-radius: 16px;
+    padding: 20px;
+    backdrop-filter: blur(12px);
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    /* Ensure styles for buttons */
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.note-preview-card:hover {
+    transform: translateY(-3px);
+    background: rgba(139, 92, 246, 0.15);
+    border-color: rgba(139, 92, 246, 0.5);
+}
+
+.note-preview-card:active {
+    transform: scale(0.98);
+}
+
+.note-preview-content {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: #e2e8f0;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    opacity: 0.95;
+}
+
+.note-icon-corner {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    opacity: 0.5;
+    color: var(--purple);
+}
+
+/* Note Controls */
+.note-controls {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    display: flex;
+    gap: 10px;
+    z-index: 20;
+}
+
+.btn-note-action {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.2);
+    color: #94a3b8;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(4px);
+}
+
+.btn-note-action:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-edit:hover {
+    background: rgba(56, 189, 248, 0.2);
+    border-color: var(--cyan);
+    color: var(--cyan);
+}
+
+.btn-delete:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: var(--red);
+    color: var(--red);
+}
+
+@media (max-width: 700px) {
+    .note-controls {
+        bottom: 15px;
+        right: 15px;
+    }
+
+    .btn-note-action {
+        width: 42px;
+        height: 42px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+    }
+}

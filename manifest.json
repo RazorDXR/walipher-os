@@ -1,0 +1,13 @@
+{
+  "name": "Walipher OS",
+  "short_name": "Walipher",
+  "display": "standalone",
+  "description": "Tu sistema operativo personal de productividad.",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
