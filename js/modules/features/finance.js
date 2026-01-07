@@ -281,7 +281,7 @@ export const updateFinanceUI = () => {
             const li = document.createElement('li');
             li.className = 'pending-item';
             li.id = `pending-item-${idx}`;
-            const carryTag = item.carried ? '<span class="carry-dot" title="Mes Anterior"></span>' : '';
+            const carryTag = item.carried ? '<span class="badge-carried">⚠️ Mes Anterior</span>' : '';
 
             li.innerHTML = `
                 <div class="pending-content-wrapper" data-action="toggle-opt" data-index="${idx}">
