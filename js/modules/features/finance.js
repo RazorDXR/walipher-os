@@ -135,7 +135,7 @@ export const wipeFinanceData = () => {
 export const addPendingExpense = () => {
     const desc = document.getElementById('pend-desc').value.trim();
     const amount = parseFloat(document.getElementById('pend-amount').value);
-    const dateInput = document.getElementById('pend-date').value; // YYYY-MM-DD
+    const dateInput = document.getElementById('pend-date-hidden').value; // YYYY-MM-DD
 
     if (!desc || isNaN(amount) || amount <= 0) { uiAlert("Datos Incompletos", "Ingresa descripción y monto."); return; }
     if (!dateInput) { uiAlert("Falta Fecha", "Por favor selecciona una fecha de vencimiento."); return; }
@@ -151,7 +151,13 @@ export const addPendingExpense = () => {
     updateFinanceUI(); // Optimistic Update
     document.getElementById('pend-desc').value = "";
     document.getElementById('pend-amount').value = "";
-    document.getElementById('pend-date').value = "";
+    document.getElementById('pend-date-hidden').value = "";
+    const dateBtn = document.getElementById('btn-pend-date');
+    if (dateBtn) {
+        dateBtn.querySelector('span').innerText = "Fecha Vencimiento";
+        dateBtn.style.color = "#94a3b8";
+        dateBtn.style.borderColor = "var(--glass-border)";
+    }
 };
 
 export const payExpense = (index, source) => {
@@ -428,5 +434,27 @@ export const initFinanceListeners = () => {
 
     // Global Reset
     click('#btn-reset-month', resetMonth);
-    click('#btn-wipe-finance', wipeFinanceData);
+    // Date Picker Logic
+    const dateBtn = document.getElementById('btn-pend-date');
+    const dateInput = document.getElementById('pend-date-hidden');
+
+    if (dateBtn && dateInput) {
+        dateBtn.addEventListener('click', () => {
+            // Try modern API or fallback
+            if (dateInput.showPicker) dateInput.showPicker();
+            else dateInput.click();
+        });
+
+        dateInput.addEventListener('change', () => {
+            if (dateInput.value) {
+                const [y, m, d] = dateInput.value.split('-');
+                dateBtn.querySelector('span').innerText = `Vence: ${d}/${m}`;
+                dateBtn.style.color = "white";
+                dateBtn.style.borderColor = "var(--cyan)";
+            } else {
+                dateBtn.querySelector('span').innerText = "Fecha Vencimiento";
+                dateBtn.style.color = "#94a3b8";
+            }
+        });
+    }
 };

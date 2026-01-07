@@ -16,7 +16,7 @@
 
     <link rel="manifest" href="manifest.json">
     <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="css/style.css?v=1.4.1">
+    <link rel="stylesheet" href="css/style.css?v=1.4.2">
     <style>
         /* CRITICAL: Start hidden to prevent FOUC */
         #pinned-tasks-section {
@@ -284,7 +284,7 @@
         <!-- Version Tag (Moved Inside Dashboard) -->
         <div class="version-tag"
             style="position: fixed; bottom: 5px; right: 10px; opacity: 0.5; font-size: 0.7rem; color: white; background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: 4px; pointer-events: none; z-index: 9999;">
-            WalipherOS v1.4.1</div>
+            WalipherOS v1.4.2</div>
 
         <!-- Notification Center Panel -->
         <div id="notification-panel" class="notification-panel">
@@ -516,8 +516,17 @@
                     <div class="pending-input-group">
                         <input type="text" id="pend-desc" class="glass-input" placeholder="Nombre (Ej: Internet)"
                             style="padding:12px; flex:3;">
-                        <input type="date" id="pend-date" class="glass-input"
-                            style="padding:12px; flex:1; min-width:110px;">
+                        <div style="grid-area: date; position: relative;">
+                            <input type="date" id="pend-date-hidden"
+                                style="position: absolute; opacity: 0; pointer-events: none; width: 1px; height: 1px;">
+                            <button id="btn-pend-date" class="glass-input"
+                                style="width: 100%; height: 100%; text-align: left; color: #94a3b8; display: flex; align-items: center; justify-content: space-between; padding: 12px; cursor: pointer;">
+                                <span>Fecha Vencimiento</span>
+                                <svg class="icon-svg icon-sm">
+                                    <use href="#icon-calendar" />
+                                </svg>
+                            </button>
+                        </div>
                         <input type="number" id="pend-amount" class="glass-input" placeholder="Monto"
                             style="min-width: 80px; padding:12px; flex:1; text-align:center;">
                         <button class="btn-add-pending">+</button>
