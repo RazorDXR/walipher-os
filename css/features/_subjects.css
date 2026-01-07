@@ -428,3 +428,17 @@
         opacity: 0;
     }
 }
+
+/* Specific Modal Adjustment for "Administrar Materias" */
+#subjects-modal .modal-window {
+    max-width: 420px;
+    /* Tighter width */
+    padding: 24px;
+    /* Reduced vertical padding */
+}
+
+/* Make inputs slightly more compact inside this modal */
+#subjects-modal .glass-input {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+}
