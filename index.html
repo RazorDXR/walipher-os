@@ -16,7 +16,7 @@
 
     <link rel="manifest" href="manifest.json">
     <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="css/style.css?v=1.4.5">
+    <link rel="stylesheet" href="css/style.css?v=1.4.7">
     <style>
         /* CRITICAL: Start hidden to prevent FOUC */
         #pinned-tasks-section {
@@ -284,7 +284,7 @@
         <!-- Version Tag (Moved Inside Dashboard) -->
         <div class="version-tag"
             style="position: fixed; bottom: 5px; right: 10px; opacity: 0.5; font-size: 0.7rem; color: white; background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: 4px; pointer-events: none; z-index: 9999;">
-            WalipherOS v1.4.5</div>
+            WalipherOS v1.4.7</div>
 
         <!-- Notification Center Panel -->
         <div id="notification-panel" class="notification-panel">
@@ -782,87 +782,113 @@
                         </svg></div>
                 </div>
 
-                <div
-                    style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--glass-border);">
-                    <h4 style="margin: 0; color: #cbd5e1;">Agregar Nueva Materia</h4>
-                    <input type="text" id="subj-name" class="glass-input" placeholder="Nombre Materia (ej: Historia)">
-                    <div style="display: flex; gap: 10px;">
-                        <input type="text" id="subj-code" class="glass-input" placeholder="Código (ej: HIS-101)"
-                            style="flex:1;">
-                        <input type="text" id="subj-room" class="glass-input" placeholder="Aula (ej: A-202)"
-                            style="flex:1;">
-                    </div>
-                    <!-- Day & Time Selection -->
-                    <div style="margin-top:5px;">
-                        <label style="font-size:0.8rem; color:#94a3b8; display:block; margin-bottom:5px;">Día:</label>
-                        <select id="subj-day" class="glass-input" style="width:100%; cursor: pointer;">
-                            <option value="1">Lunes</option>
-                            <option value="2">Martes</option>
-                            <option value="3">Miércoles</option>
-                            <option value="4">Jueves</option>
-                            <option value="5">Viernes</option>
-                            <option value="6">Sábado</option>
-                        </select>
-                    </div>
-
-                    <div style="display: flex; gap: 10px; margin-top:5px; align-items: flex-end;">
-                        <div style="flex:1;">
+                <!-- VIEW 1: FORM -->
+                <div id="subj-view-form">
+                    <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+                        <h4 style="margin: 0; color: #cbd5e1;">Agregar Nueva Materia</h4>
+                        <input type="text" id="subj-name" class="glass-input"
+                            placeholder="Nombre Materia (ej: Historia)">
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" id="subj-code" class="glass-input" placeholder="Código (ej: HIS-101)"
+                                style="flex:1;">
+                            <input type="text" id="subj-room" class="glass-input" placeholder="Aula (ej: A-202)"
+                                style="flex:1;">
+                        </div>
+                        <!-- Day & Time Selection -->
+                        <div style="margin-top:5px;">
                             <label
-                                style="font-size:0.8rem; color:#94a3b8; display:block; margin-bottom:5px;">Desde:</label>
-                            <div class="time-picker-group">
-                                <input type="number" id="start-h" class="glass-input time-part" placeholder="12" min="1"
-                                    max="12">
-                                <span style="color:white; font-weight:bold;">:</span>
-                                <input type="number" id="start-m" class="glass-input time-part" placeholder="00" min="0"
-                                    max="59">
-                                <button id="start-ampm" class="ampm-toggle">AM</button>
+                                style="font-size:0.8rem; color:#94a3b8; display:block; margin-bottom:5px;">Día:</label>
+                            <select id="subj-day" class="glass-input" style="width:100%; cursor: pointer;">
+                                <option value="1">Lunes</option>
+                                <option value="2">Martes</option>
+                                <option value="3">Miércoles</option>
+                                <option value="4">Jueves</option>
+                                <option value="5">Viernes</option>
+                                <option value="6">Sábado</option>
+                            </select>
+                        </div>
+
+                        <div style="display: flex; gap: 10px; margin-top:5px; align-items: flex-end;">
+                            <div style="flex:1;">
+                                <label
+                                    style="font-size:0.8rem; color:#94a3b8; display:block; margin-bottom:5px;">Desde:</label>
+                                <div class="time-picker-group">
+                                    <input type="number" id="start-h" class="glass-input time-part" placeholder="12"
+                                        min="1" max="12">
+                                    <span style="color:white; font-weight:bold;">:</span>
+                                    <input type="number" id="start-m" class="glass-input time-part" placeholder="00"
+                                        min="0" max="59">
+                                    <button id="start-ampm" class="ampm-toggle">AM</button>
+                                </div>
+                            </div>
+                            <div style="flex:1;">
+                                <label
+                                    style="font-size:0.8rem; color:#94a3b8; display:block; margin-bottom:5px;">Hasta:</label>
+                                <div class="time-picker-group">
+                                    <input type="number" id="end-h" class="glass-input time-part" placeholder="01"
+                                        min="1" max="12">
+                                    <span style="color:white; font-weight:bold;">:</span>
+                                    <input type="number" id="end-m" class="glass-input time-part" placeholder="00"
+                                        min="0" max="59">
+                                    <button id="end-ampm" class="ampm-toggle">PM</button>
+                                </div>
                             </div>
                         </div>
-                        <div style="flex:1;">
-                            <label
-                                style="font-size:0.8rem; color:#94a3b8; display:block; margin-bottom:5px;">Hasta:</label>
-                            <div class="time-picker-group">
-                                <input type="number" id="end-h" class="glass-input time-part" placeholder="01" min="1"
-                                    max="12">
-                                <span style="color:white; font-weight:bold;">:</span>
-                                <input type="number" id="end-m" class="glass-input time-part" placeholder="00" min="0"
-                                    max="59">
-                                <button id="end-ampm" class="ampm-toggle">PM</button>
-                            </div>
+
+                        <div style="margin-top:15px;">
+                            <label style="font-size:0.8rem; color:#94a3b8; display:block; margin-bottom:5px;">⏰
+                                Recordatorio
+                                (Minutos antes):</label>
+                            <input type="number" id="subj-reminder" class="glass-input" placeholder="10" min="1"
+                                max="60" value="10">
                         </div>
+
+                        <button id="btn-save-subj" class="btn-main-action btn-income"
+                            style="width: 100%; margin-top: 15px;">
+                            <svg class="icon-svg icon-sm">
+                                <use href="#icon-plus" />
+                            </svg>
+                            Guardar Materia
+                        </button>
+
+                        <button id="btn-cancel-edit" class="btn-main-action"
+                            style="width: 100%; margin-top: 10px; display:none; background: rgba(255,255,255,0.05);">
+                            <svg class="icon-svg icon-sm">
+                                <use href="#icon-close" />
+                            </svg>
+                            Cancelar Edición
+                        </button>
+
+                        <button id="btn-go-to-list" class="btn-main-action"
+                            style="width: 100%; margin-top: 20px; background: rgba(56, 189, 248, 0.1); border-color: rgba(56, 189, 248, 0.3); color: var(--cyan);">
+                            <svg class="icon-svg icon-sm">
+                                <use href="#icon-subjects" />
+                            </svg>
+                            Ver Lista de Materias
+                        </button>
                     </div>
-
-                    <div style="margin-top:15px;">
-                        <label style="font-size:0.8rem; color:#94a3b8; display:block; margin-bottom:5px;">⏰ Recordatorio
-                            (Minutos antes):</label>
-                        <input type="number" id="subj-reminder" class="glass-input" placeholder="10" min="1" max="60"
-                            value="10">
-                    </div>
-
-                    <button id="btn-save-subj" class="btn-main-action btn-income"
-                        style="width: 100%; margin-top: 15px;">
-                        <svg class="icon-svg icon-sm">
-                            <use href="#icon-plus" />
-                        </svg>
-                        Guardar Materia
-                    </button>
-
-                    <button id="btn-cancel-edit" class="btn-main-action"
-                        style="width: 100%; margin-top: 10px; display:none; background: rgba(255,255,255,0.05);">
-                        <svg class="icon-svg icon-sm">
-                            <use href="#icon-close" />
-                        </svg>
-                        Cancelar Edición
-                    </button>
                 </div>
 
-                <div style="max-height: 250px; overflow-y: auto;">
-                    <h4 style="margin: 0 0 10px 0; color: #cbd5e1;">Lista de Materias</h4>
-                    <div id="subjects-list-admin" style="display: flex; flex-direction: column; gap: 8px;">
-                        <!-- List items injected by JS -->
+                <!-- VIEW 2: LIST -->
+                <div id="subj-view-list" style="display: none; flex-direction: column; height: 100%;">
+                    <button id="btn-back-to-form" class="pomo-btn btn-reset"
+                        style="width: 100%; padding: 10px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <svg class="icon-svg icon-sm" style="transform: rotate(180deg);">
+                            <use href="#icon-arrow-right" /> <!-- Assuming arrow-right exists, or use generic -->
+                        </svg>
+                        Volver a Agregar
+                    </button>
+
+                    <h4 style="margin: 0 0 10px 0; color: #cbd5e1; text-align: center;">Mis Materias</h4>
+
+                    <div style="flex: 1; overflow-y: auto; padding-right: 5px;">
+                        <div id="subjects-list-admin" style="display: flex; flex-direction: column; gap: 8px;">
+                            <!-- List items injected by JS -->
+                        </div>
                     </div>
+
                     <button class="btn-main-action" id="btn-clear-schedule"
-                        style="width: 100%; margin-top: 20px; color: #ef4444; border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.1);">
+                        style="width: 100%; margin-top: 15px; color: #ef4444; border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.1);">
                         <svg class="icon-svg icon-sm">
                             <use href="#icon-delete" />
                         </svg>

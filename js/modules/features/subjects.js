@@ -110,6 +110,14 @@ export const editSubject = (index) => {
     document.getElementById('btn-save-subj').innerHTML = `<svg class="icon-svg icon-sm"><use href="#icon-edit"/></svg> Actualizar Materia`;
     document.getElementById('btn-cancel-edit').style.display = 'flex';
 
+    // Force switch to Form View
+    const formView = document.getElementById('subj-view-form');
+    const listView = document.getElementById('subj-view-list');
+    if (formView && listView) {
+        listView.style.display = 'none';
+        formView.style.display = 'block';
+    }
+
     const modalWindow = document.querySelector('#subjects-modal .modal-window');
     if (modalWindow) modalWindow.scrollTop = 0;
 };
@@ -344,6 +352,23 @@ export const initSubjectListeners = () => {
     ampmBtns.forEach(btn => {
         btn.addEventListener('click', () => toggleAmPm(btn));
     });
+
+    // View Switching
+    const btnGoList = document.getElementById('btn-go-to-list');
+    if (btnGoList) {
+        btnGoList.addEventListener('click', () => {
+            document.getElementById('subj-view-form').style.display = 'none';
+            document.getElementById('subj-view-list').style.display = 'flex';
+        });
+    }
+
+    const btnBackForm = document.getElementById('btn-back-to-form');
+    if (btnBackForm) {
+        btnBackForm.addEventListener('click', () => {
+            document.getElementById('subj-view-list').style.display = 'none';
+            document.getElementById('subj-view-form').style.display = 'block';
+        });
+    }
 };
 
 export const checkCurrentClass = () => {
