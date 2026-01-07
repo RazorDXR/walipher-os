@@ -432,11 +432,28 @@ input[type=number]::-webkit-outer-spin-button {
     .pending-input-group {
         grid-template-columns: 1fr;
         grid-template-areas:
+            /* Use quoted strings for safety */
             "name"
             "date"
             "amount"
             "btn";
-        gap: 10px;
+        gap: 15px;
+        /* Increase gap for touch targets */
+    }
+
+    /* Force height on inputs/buttons in this group for mobile visibility */
+    .pending-input-group input,
+    .pending-input-group button,
+    .pending-input-group select {
+        min-height: 45px !important;
+        width: 100% !important;
+    }
+
+    /* Ensure the date input specifically is visible */
+    #pend-date {
+        grid-area: date;
+        display: block;
+        opacity: 1;
     }
 
     .pay-buttons-row {

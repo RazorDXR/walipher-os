@@ -111,6 +111,11 @@ export const renderTodosUI = () => {
         }
     });
 
+    // Empty State Handling
+    if (state.todos.length === 0) {
+        todoList.innerHTML = `<div style="text-align:center; padding:30px; color:#64748b; font-style:italic;">No tienes tareas pendientes.<br>¡Buen trabajo! 🎉</div>`;
+    }
+
     if (activeTasksCount > 0) {
         const computedStyle = window.getComputedStyle(pinnedSection);
         const isHidden = computedStyle.display === 'none';

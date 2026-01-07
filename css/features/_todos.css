@@ -137,6 +137,9 @@
     flex: 1;
     color: #e2e8f0;
     font-size: 1rem;
+    word-break: break-word;
+    /* Ensure long words wrap */
+    line-height: 1.5;
 }
 
 .todo-item.completed .todo-text {
