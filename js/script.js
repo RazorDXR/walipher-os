@@ -159,5 +159,21 @@ window.addEventListener('load', () => {
             }, true);
         });
     }
+
+    // 7. Force Update / Cache Clear
+    const updateBtn = document.getElementById('btn-force-update');
+    if (updateBtn) {
+        updateBtn.addEventListener('click', async () => {
+            if ('serviceWorker' in navigator) {
+                const regs = await navigator.serviceWorker.getRegistrations();
+                for (let reg of regs) await reg.unregister();
+            }
+            // Force reload by appending timestamp to URL (bypasses browser cache for index.html)
+            const url = new URL(window.location.href);
+            url.searchParams.set('force_update', Date.now());
+            window.location.href = url.toString();
+        });
+    }
+
     console.log("🚀 WalipherOS Systems Online");
 });
