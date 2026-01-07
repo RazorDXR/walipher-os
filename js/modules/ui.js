@@ -3,6 +3,7 @@
 export const openModal = (id) => {
     const modal = document.getElementById(id);
     if (modal) modal.classList.add('open');
+    document.body.style.overflow = 'hidden'; // Lock Body Scroll
 
     // Ocultar botón de settings para limpieza visual
     const settingsBtn = document.getElementById('settings-btn');
@@ -26,6 +27,7 @@ export const closeModal = (id) => {
     // Verificar si quedan modales abiertos
     const openModals = document.querySelectorAll('.modal-overlay.open');
     if (openModals.length === 0) {
+        document.body.style.overflow = ''; // Unlock Body Scroll
         const settingsBtn = document.getElementById('settings-btn');
         if (settingsBtn) settingsBtn.style.display = 'flex';
     }
@@ -36,8 +38,10 @@ export const toggleSettings = () => {
     if (stModal.style.display === 'flex') {
         stModal.style.display = 'none';
         stModal.classList.remove('open');
+        document.body.style.overflow = ''; // Unlock
     } else {
         stModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Lock
         // Hack para animación
         requestAnimationFrame(() => stModal.classList.add('open'));
     }

@@ -50,6 +50,20 @@
     }
 }
 
+@media (max-width: 700px) {
+    .clock {
+        font-size: 2.5rem;
+        /* Smaller for mobile */
+        letter-spacing: -1px;
+    }
+
+    .unified-pill {
+        padding: 6px 15px;
+        gap: 10px;
+        font-size: 0.85rem;
+    }
+}
+
 /* Unified Status Pill */
 .unified-pill {
     display: flex;

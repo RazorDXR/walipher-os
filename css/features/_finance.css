@@ -407,15 +407,43 @@ input[type=number]::-webkit-outer-spin-button {
 @media (max-width: 700px) {
     .fin-dashboard {
         grid-template-columns: 1fr 1fr;
+        /* Keep 2 cols for cards */
+        gap: 10px;
+    }
+
+    .fin-card {
+        padding: 15px;
+        /* Less padding */
+    }
+
+    .fin-amount {
+        font-size: 1.2rem;
+    }
+
+    .fin-amount.main {
+        font-size: 1.6rem;
     }
 
     .fin-card.full-width {
         grid-column: span 2;
     }
 
+    /* Stack pending inputs vertically on mobile */
+    .pending-input-group {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "name"
+            "date"
+            "amount"
+            "btn";
+        gap: 10px;
+    }
 
     .pay-buttons-row {
         flex-direction: column;
+        /* Already correct */
+        display: flex;
+        /* Ensure flex behavior */
     }
 
     .finance-actions-bar {

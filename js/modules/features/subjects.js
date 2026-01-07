@@ -162,6 +162,8 @@ export const renderScheduleUI = () => {
     container.innerHTML = "";
     adminList.innerHTML = "";
 
+    if (!state.schedule) state.schedule = []; // Auto-init if missing
+
     if (state.schedule.length === 0) {
         container.innerHTML = `<div style="text-align: center; padding: 40px; color: #64748b;">No hay materias registradas.<br>Toca "Editar Materias" para comenzar.</div>`;
         adminList.innerHTML = `<div style="text-align: center; padding: 20px; color: #64748b;">Lista vacía</div>`;
