@@ -283,11 +283,19 @@ export const updateFinanceUI = () => {
             li.id = `pending-item-${idx}`;
             const carryTag = item.carried ? '<span class="badge-carried">⚠️ Mes Anterior</span>' : '';
 
+            let dateText = `Vence: ${formatDate(item.dueDate)}`;
+            if (item.carried && item.dueDate) {
+                const [y, m, d] = item.dueDate.split('-');
+                const monthNames = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+                const mName = monthNames[parseInt(m) - 1] || m;
+                dateText = `Vencida el ${d} de ${mName}`;
+            }
+
             li.innerHTML = `
                 <div class="pending-content-wrapper" data-action="toggle-opt" data-index="${idx}">
                     <div class="pending-info">
                         <span class="pending-desc">${item.desc} ${carryTag}</span>
-                        <span class="pending-date" style="color:${getDueDateColor(item.dueDate)}">Vence: ${formatDate(item.dueDate)}</span>
+                        <span class="pending-date" style="color:${getDueDateColor(item.dueDate)}">${dateText}</span>
                     </div>
                     <div class="pending-cost">RD$ ${formatCurrency(item.amount)}</div>
                 </div>
@@ -434,6 +442,8 @@ export const initFinanceListeners = () => {
 
     // Global Reset
     click('#btn-reset-month', resetMonth);
+    click('#btn-wipe-finance', wipeFinanceData);
+
     // Date Picker Logic
     const dateBtn = document.getElementById('btn-pend-date');
     const dateInput = document.getElementById('pend-date-hidden');
