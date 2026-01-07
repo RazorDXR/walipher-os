@@ -1,4 +1,4 @@
-import { initStore, subscribe } from "./modules/store.js";
+import { initStore, subscribe, state } from "./modules/store.js";
 import { isMobile } from "./modules/core.js";
 
 /* --- Feature Modules --- */
@@ -9,7 +9,11 @@ import * as Subjects from "./modules/features/subjects.js";
 import * as Notes from "./modules/features/notes.js";
 import * as Notif from "./modules/features/notifications.js";
 import * as Weather from "./modules/features/weather.js";
+import * as Personalization from "./modules/features/personalization.js";
 import * as UI from "./modules/ui.js";
+import * as Links from "./modules/features/links.js";
+
+import { initAuth, logout } from "./modules/auth.js";
 
 /* --- Initialize System --- */
 const updateDashboard = () => {
@@ -36,10 +40,16 @@ let phrase = ""; let i = 0;
 const startTyping = () => {
     if (!typeElement) return;
     const now = new Date(); const h = now.getHours();
-    let g = "HOLA WALIPHER";
-    if (h >= 5 && h < 12) g = "BUENOS DIAS WALIPHER";
-    else if (h >= 12 && h < 19) g = "BUENAS TARDES WALIPHER";
-    else g = "BUENAS NOCHES WALIPHER";
+
+    // Get Name (Upper Case)
+    let userName = "WALIPHER";
+    if (state.user && state.user.name) userName = state.user.name.toUpperCase();
+
+    let g = `HOLA ${userName}`;
+    if (h >= 5 && h < 12) g = `BUENOS DIAS ${userName}`;
+    else if (h >= 12 && h < 19) g = `BUENAS TARDES ${userName}`;
+    else g = `BUENAS NOCHES ${userName}`;
+
     phrase = g; typeElement.innerText = ""; i = 0; typeWriter();
 }
 const typeWriter = () => {
@@ -49,15 +59,24 @@ const typeWriter = () => {
 }
 
 // Subscribe Renders to Store
+// Subscribe Renders to Store
+let currentGreetingName = null;
 subscribe(() => {
     Todos.renderTodosUI();
     Subjects.renderScheduleUI();
     Subjects.checkCurrentClass();
     Finance.updateFinanceUI();
     Notes.renderNotesPreview();
+    Links.renderLinksUI();
     Notif.updateNotificationBadge();
     Notif.renderNotifications();
-    Notif.checkEmergencyNotifications();
+
+    // Reactive Greeting
+    const newName = state.user?.name || "WALIPHER";
+    if (newName !== currentGreetingName) {
+        currentGreetingName = newName;
+        startTyping();
+    }
 });
 
 // Boot Sequence
@@ -65,7 +84,8 @@ window.addEventListener('load', () => {
     console.log("WalipherOS Modular Boot...");
 
     // 1. Init Data & Store
-    initStore();
+    // 1. Init Auth (Which will init Store)
+    initAuth();
 
     // 2. Attach Listeners (Clean HTML Support)
     UI.initUIListeners();
@@ -76,34 +96,68 @@ window.addEventListener('load', () => {
     Notes.initNotes();
     Notif.initNotificationListeners();
     Weather.initWeather();
+    Personalization.initPersonalization();
+    Links.initLinks();
+
 
     // 3. Start Loops
-    startTyping();
     updateDashboard();
     setInterval(updateDashboard, 1000);
     setInterval(Subjects.checkCurrentClass, 60000);
-    setInterval(Subjects.checkUpcomingClasses, 60000);
+    // Notifications managed by Notif module now
+    // setInterval(Subjects.checkUpcomingClasses, 60000); 
 
     // 4. Mobile Layout Check
     const checkMobile = () => { if (window.innerWidth <= 700) document.querySelectorAll('.col-meta-group').forEach(el => el.style.display = 'flex'); else document.querySelectorAll('.col-meta-group').forEach(el => el.style.display = 'none'); }
     window.addEventListener('resize', checkMobile);
     checkMobile();
 
-    // 5. Global Factory Reset (Attached directly for safety)
+    // 5. Logout Listener
+    const btnLogout = document.getElementById('btn-logout');
+    if (btnLogout) {
+        btnLogout.addEventListener('click', () => {
+            UI.uiConfirm("¿Cerrar Sesión?", "Tendrás que ingresar de nuevo.", () => {
+                logout();
+            });
+        });
+    }
+
+    // 6. Global Factory Reset (Attached directly for safety)
     const resetBtn = document.getElementById('btn-factory-reset');
     if (resetBtn) {
         // Event Listener attached by ID
         resetBtn.addEventListener('click', () => {
             UI.uiConfirm("¿FACTORY RESET?", "ESTO BORRA TODO. IRREVERSIBLE.", async () => {
+                // 1. Force Clear State in RAM & Save Empty (Double Tap)
+                const { state, saveData } = await import("./modules/store.js");
+                state.todos = [];
+                state.schedule = [];
+                state.financeData = { cash: 0, debit: 0, creditLimit: 0, creditDebt: 0, history: [], pendingExpenses: [] };
+                state.notes = "";
+                state.notifications = [];
+                state.links = []; // Explicitly clear widgets
+                state.preferences = {};
+
+                await saveData(); // Overwrite cloud with Zeros first
+
+                // 2. Delete Cloud Documents (Nuclear option)
+                const { borrarDatosUsuario } = await import("./modules/data_service.js");
+                await borrarDatosUsuario();
+
+                // 3. Clear Local Storage
                 localStorage.clear();
+
+                // 4. Unregister Service Workers
                 if ('serviceWorker' in navigator) {
                     const regs = await navigator.serviceWorker.getRegistrations();
                     for (let reg of regs) await reg.unregister();
                 }
-                window.location.reload(true);
+
+                // 5. Reload (No Logout)
+                // Small delay to ensure Firestore propagation
+                setTimeout(() => window.location.reload(true), 1000);
             }, true);
         });
     }
-
-    console.log("System Ready.");
+    console.log("🚀 WalipherOS Systems Online");
 });

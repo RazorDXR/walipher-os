@@ -73,10 +73,11 @@ export const addSubject = () => {
     const day = parseInt(document.getElementById('subj-day').value);
     const start = get24hTime('start');
     const end = get24hTime('end');
+    const reminder = parseInt(document.getElementById('subj-reminder').value) || 10;
 
     if (!name || !start || !end) { uiAlert("Faltan Datos", "Verifica el Nombre y el Formato de Hora (1-12)."); return; }
 
-    const newSubj = { name, code, room, day, start, end };
+    const newSubj = { name, code, room, day, start, end, notifyBefore: reminder };
 
     if (editingIndex >= 0) {
         state.schedule[editingIndex] = newSubj;
@@ -101,6 +102,7 @@ export const editSubject = (index) => {
     document.getElementById('subj-code').value = subj.code;
     document.getElementById('subj-room').value = subj.room;
     document.getElementById('subj-day').value = subj.day;
+    document.getElementById('subj-reminder').value = subj.notifyBefore || 10;
 
     setTimeInputs('start', subj.start);
     setTimeInputs('end', subj.end);
@@ -121,6 +123,7 @@ export const cancelEdit = () => {
     document.getElementById('start-m').value = "";
     document.getElementById('end-h').value = "";
     document.getElementById('end-m').value = "";
+    document.getElementById('subj-reminder').value = "10";
 
     // Reset AM/PM logic defaults if needed, but simplified:
     const startBtn = document.getElementById('start-ampm');
@@ -385,36 +388,8 @@ export const checkCurrentClass = () => {
     }
 };
 
-let notifiedClasses = new Set();
-export const checkUpcomingClasses = () => {
-    const now = new Date();
-    const day = now.getDay();
-    const currentTime = now.getHours() * 60 + now.getMinutes();
-
-    state.schedule.forEach(subj => {
-        if (parseInt(subj.day) !== day) return;
-
-        const [sh, sm] = subj.start.split(':').map(Number);
-        const [eh, em] = subj.end.split(':').map(Number);
-        const startMin = sh * 60 + sm;
-        const endMin = eh * 60 + em;
-
-        if (currentTime >= startMin - 5 && currentTime < startMin) {
-            const id = `${day}-${subj.code}-start`;
-            if (!notifiedClasses.has(id)) {
-                if (window.showToast) window.showToast("Próxima Clase", `${subj.name} comienza en 5 min en ${subj.room}`, "class");
-                notifiedClasses.add(id);
-            }
-        }
-        if (currentTime >= endMin - 5 && currentTime < endMin) {
-            const id = `${day}-${subj.code}-end`;
-            if (!notifiedClasses.has(id)) {
-                if (window.showToast) window.showToast("Terminando", `${subj.name} finaliza en 5 min`, "class");
-                notifiedClasses.add(id);
-            }
-        }
-    });
-};
+// Notification logic moved to notifications.js
+// export const checkUpcomingClasses = () => { ... }
 /* --- Dynamic Greeting Logic --- */
 export const getDayStatus = (dayIndex) => {
     const daysName = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];

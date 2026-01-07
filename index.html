@@ -129,6 +129,49 @@
                 <circle cx="12" cy="12" r="10"></circle>
                 <polyline points="12 6 12 12 16 14"></polyline>
             </symbol>
+            <symbol id="icon-palette" viewBox="0 0 24 24">
+                <circle cx="13.5" cy="6.5" r="2.5"></circle>
+                <path
+                    d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.55 0 1-.45 1-1 0-1.07.93-2 2.07-2 .57 0 1.07-.15 1.5-.42.43-.27.93-.42 1.43-.42 2.21 0 4-1.79 4-4 0-1.74-1.1-3.26-2.67-3.83C19.8 4.6 16.3 2 12 2z">
+                </path>
+            </symbol>
+            <symbol id="icon-eye" viewBox="0 0 24 24">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+            </symbol>
+
+            <!-- GENERIC LINK ICONS -->
+            <symbol id="icon-globe" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                </path>
+            </symbol>
+            <symbol id="icon-book" viewBox="0 0 24 24">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </symbol>
+            <symbol id="icon-youtube" viewBox="0 0 24 24">
+                <path
+                    d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.25z">
+                </path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+            </symbol>
+            <symbol id="icon-social" viewBox="0 0 24 24">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </symbol>
+            <symbol id="icon-shop" viewBox="0 0 24 24">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </symbol>
+            <symbol id="icon-code" viewBox="0 0 24 24">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+            </symbol>
         </defs>
     </svg>
 
@@ -140,558 +183,685 @@
     <div id="weather-background-layer" class="weather-layer"></div>
     <div id="weather-fx-layer" class="weather-layer"></div>
 
-    <header class="dashboard-header">
-        <div class="greeting-container"><span class="terminal-prompt">>_</span><span class="type-text"
-                id="typewriter">...</span></div>
-        <div class="clock" id="clock">00:00:00</div>
-
-        <!-- UNIFIED STATUS CAPSULE -->
-        <div class="unified-pill">
-            <div class="status-badge">
-                <div class="status-dot"></div><span id="status-text">Cargando...</span>
+    <!-- LOGIN SCREEN -->
+    <!-- LOGIN SCREEN -->
+    <div id="login-screen" style="display:none;">
+        <div class="login-card">
+            <!-- LOGO SECTION -->
+            <div class="login-logo">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
             </div>
 
-            <div class="pill-divider"></div>
+            <!-- VIEW: LOGIN -->
+            <div id="view-login" class="auth-view active-view">
+                <div class="login-title">WalipherOS</div>
+                <div class="login-subtitle">Accede a tu espacio de productividad</div>
 
-            <div id="weather-widget" class="weather-widget">
-                <div class="weather-icon" id="weather-icon"></div>
-                <div class="weather-info">
-                    <span id="weather-temp">--°</span>
-                    <span id="weather-desc">...</span>
+                <div class="auth-input-group">
+                    <input type="email" id="login-email" class="auth-input" placeholder="Correo electrónico"
+                        autocomplete="username">
                 </div>
+                <div class="auth-input-group">
+                    <input type="password" id="login-pass" class="auth-input" placeholder="Contraseña"
+                        autocomplete="current-password">
+                </div>
+
+                <button id="btn-login" class="btn-auth-action btn-primary-auth">Iniciar Sesión</button>
+                <div class="auth-divider">
+                    <span>o</span>
+                </div>
+                <button id="btn-goto-signup" class="btn-auth-action btn-secondary-auth">Crear Cuenta Nueva</button>
+            </div>
+
+            <!-- VIEW: SIGNUP -->
+            <div id="view-signup" class="auth-view" style="display: none;">
+                <div class="login-title">Crear Cuenta</div>
+                <div class="login-subtitle">Únete al ecosistema WalipherOS</div>
+
+                <div class="auth-input-group">
+                    <input type="text" id="signup-name" class="auth-input" placeholder="Tu Nombre (ej. Walipher)"
+                        autocomplete="name">
+                </div>
+                <div class="auth-input-group">
+                    <input type="email" id="signup-email" class="auth-input" placeholder="Correo electrónico"
+                        autocomplete="username">
+                </div>
+                <div class="auth-input-group">
+                    <input type="password" id="signup-pass" class="auth-input"
+                        placeholder="Contraseña (Mín. 6 caracteres)" autocomplete="new-password">
+                </div>
+
+                <button id="btn-signup" class="btn-auth-action btn-primary-auth">Registrarse</button>
+                <button id="btn-goto-login" class="btn-auth-action btn-text-only">Volver al inicio</button>
             </div>
         </div>
-    </header>
-
-    <!-- Floating System Tray / Notification Icon -->
-    <div class="notification-btn">
-        <svg class="icon-svg icon-sm">
-            <use href="#icon-notification" />
-        </svg>
-        <span class="notification-badge" id="notif-badge" style="display:none;">0</span>
     </div>
 
-    <!-- Notification Center Panel -->
-    <div id="notification-panel" class="notification-panel">
-        <div class="notif-header">
-            <h3>Notificaciones</h3>
-            <span class="clear-notif">Borrar Todo</span>
-        </div>
-        <div class="notif-list" id="notif-list">
-            <div class="empty-notif">No tienes notificaciones nuevas</div>
-        </div>
-    </div>
-    <div id="notif-overlay" class="notif-overlay"></div>
+    <!-- MAIN APP WRAPPER (Hidden until login) -->
+    <div id="app-dashboard" style="display:none;">
 
-    <main class="workspace">
-        <!-- ZONA: Notas y Pendientes -->
-        <div class="widgets-area">
-            <div id="pinned-tasks-section">
-                <div class="section-label">
-                    <svg class="icon-svg icon-sm label-icon">
-                        <use href="#icon-gemini" />
-                    </svg>
-                    Pendientes Prioritarios
+        <header class="dashboard-header">
+            <div class="greeting-container"><span class="terminal-prompt">>_</span><span class="type-text"
+                    id="typewriter">...</span></div>
+            <div class="clock" id="clock">00:00:00</div>
+
+            <!-- UNIFIED STATUS CAPSULE -->
+            <div class="unified-pill">
+                <div class="status-badge">
+                    <div class="status-dot"></div><span id="status-text">Cargando...</span>
                 </div>
-                <div class="pinned-cards-wrapper" id="pinned-list"></div>
+
+                <div class="pill-divider"></div>
+
+                <div id="weather-widget" class="weather-widget">
+                    <div class="weather-icon" id="weather-icon"></div>
+                    <div class="weather-info">
+                        <span id="weather-temp">--°</span>
+                        <span id="weather-desc">...</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Floating System Tray / Notification Icon -->
+        <div class="notification-btn">
+            <svg class="icon-svg icon-sm">
+                <use href="#icon-notification" />
+            </svg>
+            <span class="notification-badge" id="notif-badge" style="display:none;">0</span>
+        </div>
+
+        <!-- SETTINGS FAB (Moved Inside Dashboard) -->
+        <button id="settings-btn" class="glass-btn btn-fab" title="Configuración">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <use href="#icon-settings" />
+            </svg>
+        </button>
+
+        <!-- Version Tag (Moved Inside Dashboard) -->
+        <div class="version-tag"
+            style="position: fixed; bottom: 5px; right: 10px; opacity: 0.5; font-size: 0.7rem; color: white; background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: 4px; pointer-events: none; z-index: 9999;">
+            WalipherOS v1.4</div>
+
+        <!-- Notification Center Panel -->
+        <div id="notification-panel" class="notification-panel">
+            <div class="notif-header">
+                <h3>Notificaciones</h3>
+                <span class="clear-notif">Borrar Todo</span>
+            </div>
+            <div class="notif-list" id="notif-list">
+                <div class="empty-notif">No tienes notificaciones nuevas</div>
+            </div>
+        </div>
+        <div id="notif-overlay" class="notif-overlay"></div>
+
+        <main class="workspace">
+            <!-- ZONA: Notas y Pendientes -->
+            <div class="widgets-area">
+                <div id="pinned-tasks-section">
+                    <div class="section-label">
+                        <svg class="icon-svg icon-sm label-icon">
+                            <use href="#icon-gemini" />
+                        </svg>
+                        Pendientes Prioritarios
+                    </div>
+                    <div class="pinned-cards-wrapper" id="pinned-list"></div>
+                </div>
+
+                <div id="pinned-notes-section">
+                    <div class="section-label">
+                        <svg class="icon-svg icon-sm label-icon" style="color: var(--purple);">
+                            <use href="#icon-file-text" />
+                        </svg>
+                        Nota Rápida
+                    </div>
+                    <!-- Clean: data-open-modal -->
+                    <div class="note-preview-card" id="note-card-widget" data-open-modal="notes-modal">
+                        <div class="note-preview-content" id="note-preview-text"></div>
+                        <div class="note-controls">
+                            <button class="btn-note-action btn-edit" title="Editar" data-open-modal="notes-modal">
+                                <svg class="icon-svg icon-sm" style="pointer-events:none">
+                                    <use href="#icon-note" />
+                                </svg>
+                            </button>
+                            <button class="btn-note-action btn-delete" title="Borrar">
+                                <svg class="icon-svg icon-sm" style="pointer-events:none">
+                                    <use href="#icon-delete" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div id="pinned-notes-section">
-                <div class="section-label">
-                    <svg class="icon-svg icon-sm label-icon" style="color: var(--purple);">
-                        <use href="#icon-file-text" />
-                    </svg>
-                    Nota Rápida
+            <!-- ZONA: Materia Actual -->
+            <div class="widgets-area" id="current-class-widget-area" style="display:none; margin-bottom: 20px;">
+                <div class="current-class-card">
+                    <div class="cc-header">
+                        <div class="cc-status">
+                            <span class="pulsing-dot"></span> EN CURSO AHORA
+                        </div>
+                        <div class="cc-time" id="cc-time-range">00:00 - 00:00</div>
+                    </div>
+                    <div class="cc-body">
+                        <div class="cc-title" id="cc-name">Nombre de la Materia</div>
+                        <div class="cc-info">
+                            <span id="cc-loc">Aula 000</span> • <span id="cc-code">COD-123</span>
+                        </div>
+                    </div>
+                    <div class="cc-progress-container">
+                        <div class="cc-progress-bar" id="cc-progress" style="width: 0%"></div>
+                    </div>
+                    <div class="cc-footer">
+                        <span id="cc-time-left">0 min restantes</span>
+                        <span id="cc-percent">0%</span>
+                    </div>
                 </div>
+            </div>
+
+            <!-- ZONA: Horario -->
+            <div class="schedule-controls"
+                style="width: 100%; max-width: 900px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 25px; gap: 15px;">
+                <h3 style="margin:0; font-size:1.2rem; color: white;">Horario Semanal</h3>
                 <!-- Clean: data-open-modal -->
-                <div class="note-preview-card" id="note-card-widget" data-open-modal="notes-modal">
-                    <div class="note-preview-content" id="note-preview-text"></div>
-                    <div class="note-controls">
-                        <button class="btn-note-action btn-edit" title="Editar" data-open-modal="notes-modal">
+                <button class="btn-main-action" style="padding: 8px 20px; font-size: 0.85rem; width: auto;"
+                    data-open-modal="subjects-modal">
+                    <svg class="icon-svg icon-sm" style="pointer-events:none">
+                        <use href="#icon-edit" />
+                    </svg>
+                    Editar Materias
+                </button>
+            </div>
+
+            <div class="schedule-container" id="schedule-list">
+                <!-- Dynamic Schedule will be rendered here -->
+                <div style="text-align: center; padding: 40px; color: #64748b;">
+                    No hay materias registradas.<br>Toca "Editar Materias" para comenzar.
+                </div>
+            </div>
+        </main>
+
+        <nav class="dock-container">
+            <!-- Clean: data-open-modal -->
+            <div class="dock-item" data-open-modal="todo-modal" data-tooltip="Tareas">
+                <svg class="icon-svg dock-icon" style="color: var(--blue);">
+                    <use href="#icon-task" />
+                </svg>
+            </div>
+            <div class="dock-item" data-open-modal="notes-modal" data-tooltip="Notas">
+                <svg class="icon-svg dock-icon" style="color: var(--purple);">
+                    <use href="#icon-note" />
+                </svg>
+            </div>
+            <div class="dock-item" data-open-modal="finance-modal" data-tooltip="Finanzas">
+                <svg class="icon-svg dock-icon" style="color: var(--green);">
+                    <use href="#icon-finance" />
+                </svg>
+            </div>
+            <div class="dock-item" data-open-modal="pomodoro-modal" data-tooltip="Pomodoro">
+                <svg class="icon-svg dock-icon" style="color: var(--red);">
+                    <use href="#icon-pomodoro" />
+                </svg>
+            </div>
+            <div class="dock-item" data-open-modal="links-modal" data-tooltip="Enlaces">
+                <svg class="icon-svg dock-icon" style="color: #f59e0b;">
+                    <use href="#icon-links" />
+                </svg>
+            </div>
+            <div class="dock-item" data-open-modal="modal-personalization" data-tooltip="Temas">
+                <svg class="icon-svg dock-icon" style="color: var(--cyan);">
+                    <use href="#icon-palette" />
+                </svg>
+            </div>
+        </nav>
+
+        <!-- MODAL: Tareas -->
+        <div class="modal-overlay" id="todo-modal">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <svg class="icon-svg modal-title-icon">
+                            <use href="#icon-task" />
+                        </svg>
+                        Tareas
+                    </div>
+                    <!-- Clean: data-close-modal -->
+                    <div class="close-btn" data-close-modal="todo-modal"><svg class="icon-svg">
+                            <use href="#icon-close" />
+                        </svg></div>
+                </div>
+                <div class="todo-input-group">
+                    <input type="text" id="todo-input" class="glass-input" placeholder="Nueva tarea + Enter"
+                        style="flex:1;">
+                    <button class="deadline-toggle" id="deadline-btn" title="Extender plazo (7 días)">
+                        <svg class="icon-svg icon-sm">
+                            <use href="#icon-clock" />
+                        </svg>
+                        <span>2d</span>
+                    </button>
+                </div>
+                <ul class="todo-list" id="todo-list"></ul>
+            </div>
+        </div>
+
+        <!-- MODAL: Finanzas -->
+        <div class="modal-overlay" id="finance-modal">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <svg class="icon-svg modal-title-icon" style="color: #4ade80;">
+                            <use href="#icon-finance" />
+                        </svg>
+                        Centro Financiero
+                    </div>
+                    <div class="close-btn" data-close-modal="finance-modal"><svg class="icon-svg">
+                            <use href="#icon-close" />
+                        </svg></div>
+                </div>
+
+                <div class="fin-dashboard">
+                    <div class="fin-card full-width">
+                        <div class="fin-title">Liquidez Total (Real)</div>
+                        <div class="fin-amount main">RD$ <span id="val-total">0</span></div>
+                    </div>
+
+                    <div class="fin-card" id="card-cash" style="cursor:pointer;">
+                        <!-- Event Listeners attached in JS via querySelector on .ind-cash parent -->
+                        <div class="fin-title">Efectivo ⇄</div>
+                        <div class="fin-amount" style="font-size:1.1rem;">RD$ <span id="val-cash">0</span></div>
+                        <div class="fin-indicator ind-cash"></div>
+                    </div>
+                    <div class="fin-card" id="card-debit" style="cursor:pointer;">
+                        <div class="fin-title">Débito ⇄</div>
+                        <div class="fin-amount" style="font-size:1.1rem;">RD$ <span id="val-debit">0</span></div>
+                        <div class="fin-indicator ind-debit"></div>
+                    </div>
+                    <div class="fin-card" id="card-credit-avail" style="cursor:pointer;">
+                        <div class="fin-title">Crédito Disp. ✎</div>
+                        <div class="fin-amount" style="font-size:1.1rem; color:var(--purple);">RD$ <span
+                                id="val-credit-avail">0</span></div>
+                        <div class="fin-indicator ind-credit"></div>
+                    </div>
+                    <div class="fin-card" id="card-credit-debt" style="cursor:pointer;">
+                        <div class="fin-title">Deuda Crédito 💳</div>
+                        <div class="fin-amount" style="font-size:1.1rem; color:var(--red);">RD$ <span
+                                id="val-credit-debt">0</span></div>
+                    </div>
+                </div>
+
+                <div class="finance-actions-bar">
+                    <button class="btn-main-action btn-income">
+                        <svg class="icon-svg icon-sm" style="pointer-events:none">
+                            <use href="#icon-plus" />
+                        </svg>
+                        Nuevo Ingreso
+                    </button>
+                    <button class="btn-main-action btn-expense">
+                        <svg class="icon-svg icon-sm" style="pointer-events:none">
+                            <use href="#icon-plus" />
+                        </svg>
+                        Gasto Rápido
+                    </button>
+                </div>
+
+                <div class="pending-section">
+                    <div class="section-title">
+                        <span>CUENTAS POR PAGAR (PENDIENTES)</span>
+                        <span class="total-pending">RD$ <span id="val-pending-total">0</span></span>
+                    </div>
+
+                    <div class="pending-input-group">
+                        <input type="text" id="pend-desc" class="glass-input" placeholder="Nombre (Ej: Internet)"
+                            style="padding:12px; flex:3;">
+                        <input type="date" id="pend-date" class="glass-input"
+                            style="padding:12px; flex:1; min-width:110px;">
+                        <input type="number" id="pend-amount" class="glass-input" placeholder="Monto"
+                            style="min-width: 80px; padding:12px; flex:1; text-align:center;">
+                        <button class="btn-add-pending">+</button>
+                    </div>
+
+                    <ul class="pending-list" id="pending-list">
+                        <!-- Items will be injected here -->
+                    </ul>
+                </div>
+
+                <div class="history-section">
+                    <div class="section-title">HISTORIAL RECIENTE</div>
+                    <div class="history-list" id="history-list">
+                        <!-- History here -->
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                    <div style="display:flex; justify-content:center; gap: 40px;">
+                        <button class="btn-main-action" id="btn-reset-month"
+                            style="max-width: 180px; border-color:rgba(56, 189, 248, 0.3); color:var(--cyan); font-size: 0.8rem;">
                             <svg class="icon-svg icon-sm" style="pointer-events:none">
-                                <use href="#icon-note" />
+                                <use href="#icon-check" />
                             </svg>
+                            Cerrar Mes
                         </button>
-                        <button class="btn-note-action btn-delete" title="Borrar">
+                        <button class="btn-main-action" id="btn-wipe-finance"
+                            style="max-width: 180px; border-color:rgba(239, 68, 68, 0.3); color:#fca5a5; font-size: 0.8rem;">
                             <svg class="icon-svg icon-sm" style="pointer-events:none">
                                 <use href="#icon-delete" />
                             </svg>
+                            Borrar Todo
                         </button>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ZONA: Materia Actual -->
-        <div class="widgets-area" id="current-class-widget-area" style="display:none; margin-bottom: 20px;">
-            <div class="current-class-card">
-                <div class="cc-header">
-                    <div class="cc-status">
-                        <span class="pulsing-dot"></span> EN CURSO AHORA
-                    </div>
-                    <div class="cc-time" id="cc-time-range">00:00 - 00:00</div>
-                </div>
-                <div class="cc-body">
-                    <div class="cc-title" id="cc-name">Nombre de la Materia</div>
-                    <div class="cc-info">
-                        <span id="cc-loc">Aula 000</span> • <span id="cc-code">COD-123</span>
+                    <div style="text-align:center; font-size:0.75rem; color:#64748b; margin-top:10px;">
+                        "Cerrar Mes" guarda saldos. "Borrar Todo" reinicia a cero.
                     </div>
                 </div>
-                <div class="cc-progress-container">
-                    <div class="cc-progress-bar" id="cc-progress" style="width: 0%"></div>
+
+                <!-- Mini Modal for Income -->
+                <div class="overlay-blur" id="income-overlay"></div>
+                <div class="mini-modal" id="income-modal">
+                    <h3 style="margin:0 0 15px 0; font-size:1.1rem; text-align:center;">Registrar Ingreso</h3>
+                    <input type="text" id="inc-desc" class="glass-input" placeholder="Descripción (Opcional)"
+                        style="margin-bottom:10px;">
+                    <input type="number" id="inc-amount" class="glass-input" placeholder="Monto"
+                        style="margin-bottom:10px;">
+                    <div style="font-size:0.8rem; color:#94a3b8; margin-bottom:10px;">Destino:</div>
+                    <div class="pay-buttons-row" style="margin-bottom:15px;">
+                        <button class="btn-pay-opt opt-cash">Efectivo</button>
+                        <button class="btn-pay-opt opt-debit">Débito</button>
+                        <button class="btn-pay-opt opt-credit">Pago Crédito</button>
+                    </div>
+                    <button class="pomo-btn btn-reset" style="width:100%; padding:10px;">Cancelar</button>
                 </div>
-                <div class="cc-footer">
-                    <span id="cc-time-left">0 min restantes</span>
-                    <span id="cc-percent">0%</span>
+
+                <!-- Mini Modal for Expense -->
+                <div class="overlay-blur" id="expense-overlay"></div>
+                <div class="mini-modal" id="expense-modal">
+                    <h3 style="margin:0 0 15px 0; font-size:1.1rem; text-align:center;">Registrar Gasto Rápido</h3>
+                    <input type="text" id="exp-desc" class="glass-input" placeholder="Descripción"
+                        style="margin-bottom:10px;">
+                    <input type="number" id="exp-amount" class="glass-input" placeholder="Monto"
+                        style="margin-bottom:10px;">
+                    <div style="font-size:0.8rem; color:#94a3b8; margin-bottom:10px;">Pagar con:</div>
+                    <div class="pay-buttons-row" style="margin-bottom:15px;">
+                        <button class="btn-pay-opt opt-cash">Efectivo</button>
+                        <button class="btn-pay-opt opt-debit">Débito</button>
+                        <button class="btn-pay-opt opt-credit">Crédito</button>
+                    </div>
+                    <button class="pomo-btn btn-reset" style="width:100%; padding:10px;">Cancelar</button>
+                </div>
+
+                <!-- Mini Modal for Transfer -->
+                <div class="overlay-blur" id="transfer-overlay"></div>
+                <div class="mini-modal" id="transfer-modal">
+                    <h3 style="margin:0 0 15px 0; font-size:1.1rem; text-align:center;">Transferir Fondos</h3>
+                    <div id="trans-label"
+                        style="font-size:0.9rem; color:#cbd5e1; margin-bottom:15px; text-align:center;">
+                    </div>
+                    <input type="number" id="trans-amount" class="glass-input" placeholder="Monto a transferir"
+                        style="margin-bottom:20px;">
+                    <button class="pomo-btn btn-start"
+                        style="width:100%; padding:10px; margin-bottom:10px;">Confirmar</button>
+                    <button class="pomo-btn btn-reset" style="width:100%; padding:10px;">Cancelar</button>
+                </div>
+
+                <!-- Mini Modal for Credit Pay -->
+                <div class="overlay-blur" id="credit-pay-overlay"></div>
+                <div class="mini-modal" id="credit-pay-modal">
+                    <h3 style="margin:0 0 15px 0; font-size:1.1rem; text-align:center;">Pagar Deuda Crédito</h3>
+                    <input type="text" id="cred-pay-desc" class="glass-input" placeholder="Descripción (Ej: Pago TV)"
+                        style="margin-bottom:10px;">
+                    <input type="number" id="cred-pay-amount" class="glass-input" placeholder="Monto a pagar"
+                        style="margin-bottom:10px;">
+                    <div style="font-size:0.8rem; color:#94a3b8; margin-bottom:10px;">Usar fondos de:</div>
+                    <div class="pay-buttons-row" style="margin-bottom:15px;">
+                        <button class="btn-pay-opt opt-cash">Efectivo</button>
+                        <button class="btn-pay-opt opt-debit">Débito</button>
+                    </div>
+                    <button class="pomo-btn btn-reset" style="width:100%; padding:10px;">Cancelar</button>
                 </div>
             </div>
         </div>
 
-        <!-- ZONA: Horario -->
-        <div class="schedule-controls"
-            style="width: 100%; max-width: 900px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 25px; gap: 15px;">
-            <h3 style="margin:0; font-size:1.2rem; color: white;">Horario Semanal</h3>
-            <!-- Clean: data-open-modal -->
-            <button class="btn-main-action" style="padding: 8px 20px; font-size: 0.85rem; width: auto;"
-                data-open-modal="subjects-modal">
-                <svg class="icon-svg icon-sm" style="pointer-events:none">
-                    <use href="#icon-edit" />
-                </svg>
-                Editar Materias
-            </button>
-        </div>
-
-        <div class="schedule-container" id="schedule-list">
-            <!-- Dynamic Schedule will be rendered here -->
-            <div style="text-align: center; padding: 40px; color: #64748b;">
-                No hay materias registradas.<br>Toca "Editar Materias" para comenzar.
-            </div>
-        </div>
-    </main>
-
-    <nav class="dock-container">
-        <!-- Clean: data-open-modal -->
-        <div class="dock-item" data-open-modal="todo-modal" data-tooltip="Tareas">
-            <svg class="icon-svg dock-icon">
-                <use href="#icon-task" />
-            </svg>
-        </div>
-        <div class="dock-item" data-open-modal="notes-modal" data-tooltip="Notas">
-            <svg class="icon-svg dock-icon">
-                <use href="#icon-note" />
-            </svg>
-        </div>
-        <div class="dock-item" data-open-modal="finance-modal" data-tooltip="Finanzas">
-            <svg class="icon-svg dock-icon" style="color: #4ade80;">
-                <use href="#icon-finance" />
-            </svg>
-        </div>
-        <div class="dock-item" data-open-modal="pomodoro-modal" data-tooltip="Pomodoro">
-            <svg class="icon-svg dock-icon">
-                <use href="#icon-pomodoro" />
-            </svg>
-        </div>
-        <div class="dock-item" data-open-modal="links-modal" data-tooltip="Enlaces">
-            <svg class="icon-svg dock-icon">
-                <use href="#icon-links" />
-            </svg>
-        </div>
-    </nav>
-
-    <!-- MODAL: Tareas -->
-    <div class="modal-overlay" id="todo-modal">
-        <div class="modal-window">
-            <div class="modal-header">
-                <div class="modal-title">
-                    <svg class="icon-svg modal-title-icon">
-                        <use href="#icon-task" />
-                    </svg>
-                    Tareas
-                </div>
-                <!-- Clean: data-close-modal -->
-                <div class="close-btn" data-close-modal="todo-modal"><svg class="icon-svg">
-                        <use href="#icon-close" />
-                    </svg></div>
-            </div>
-            <div class="todo-input-group">
-                <input type="text" id="todo-input" class="glass-input" placeholder="Nueva tarea + Enter"
-                    style="flex:1;">
-                <button class="deadline-toggle" id="deadline-btn" title="Extender plazo (7 días)">
-                    <svg class="icon-svg icon-sm">
-                        <use href="#icon-clock" />
-                    </svg>
-                    <span>2d</span>
-                </button>
-            </div>
-            <ul class="todo-list" id="todo-list"></ul>
-        </div>
-    </div>
-
-    <!-- MODAL: Finanzas -->
-    <div class="modal-overlay" id="finance-modal">
-        <div class="modal-window">
-            <div class="modal-header">
-                <div class="modal-title">
-                    <svg class="icon-svg modal-title-icon" style="color: #4ade80;">
-                        <use href="#icon-finance" />
-                    </svg>
-                    Centro Financiero
-                </div>
-                <div class="close-btn" data-close-modal="finance-modal"><svg class="icon-svg">
-                        <use href="#icon-close" />
-                    </svg></div>
-            </div>
-
-            <div class="fin-dashboard">
-                <div class="fin-card full-width">
-                    <div class="fin-title">Liquidez Total (Real)</div>
-                    <div class="fin-amount main">RD$ <span id="val-total">0</span></div>
-                </div>
-
-                <div class="fin-card" id="card-cash" style="cursor:pointer;">
-                    <!-- Event Listeners attached in JS via querySelector on .ind-cash parent -->
-                    <div class="fin-title">Efectivo ⇄</div>
-                    <div class="fin-amount" style="font-size:1.1rem;">RD$ <span id="val-cash">0</span></div>
-                    <div class="fin-indicator ind-cash"></div>
-                </div>
-                <div class="fin-card" id="card-debit" style="cursor:pointer;">
-                    <div class="fin-title">Débito ⇄</div>
-                    <div class="fin-amount" style="font-size:1.1rem;">RD$ <span id="val-debit">0</span></div>
-                    <div class="fin-indicator ind-debit"></div>
-                </div>
-                <div class="fin-card" id="card-credit-avail" style="cursor:pointer;">
-                    <div class="fin-title">Crédito Disp. ✎</div>
-                    <div class="fin-amount" style="font-size:1.1rem; color:var(--purple);">RD$ <span
-                            id="val-credit-avail">0</span></div>
-                    <div class="fin-indicator ind-credit"></div>
-                </div>
-                <div class="fin-card" id="card-credit-debt" style="cursor:pointer;">
-                    <div class="fin-title">Deuda Crédito 💳</div>
-                    <div class="fin-amount" style="font-size:1.1rem; color:var(--red);">RD$ <span
-                            id="val-credit-debt">0</span></div>
-                </div>
-            </div>
-
-            <div class="finance-actions-bar">
-                <button class="btn-main-action btn-income">
-                    <svg class="icon-svg icon-sm" style="pointer-events:none">
-                        <use href="#icon-plus" />
-                    </svg>
-                    Nuevo Ingreso
-                </button>
-                <button class="btn-main-action btn-expense">
-                    <svg class="icon-svg icon-sm" style="pointer-events:none">
-                        <use href="#icon-plus" />
-                    </svg>
-                    Gasto Rápido
-                </button>
-            </div>
-
-            <div class="pending-section">
-                <div class="section-title">
-                    <span>CUENTAS POR PAGAR (PENDIENTES)</span>
-                    <span class="total-pending">RD$ <span id="val-pending-total">0</span></span>
-                </div>
-
-                <div class="pending-input-group">
-                    <input type="text" id="pend-desc" class="glass-input" placeholder="Nombre (Ej: Internet)"
-                        style="padding:12px; flex:4;">
-                    <input type="number" id="pend-amount" class="glass-input" placeholder="Monto"
-                        style="min-width: 80px; padding:12px; flex:1; text-align:center;">
-                    <button class="btn-add-pending">+</button>
-                </div>
-
-                <ul class="pending-list" id="pending-list">
-                    <!-- Items will be injected here -->
-                </ul>
-            </div>
-
-            <div class="history-section">
-                <div class="section-title">HISTORIAL RECIENTE</div>
-                <div class="history-list" id="history-list">
-                    <!-- History here -->
-                </div>
-            </div>
-
-            <div style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
-                <div style="display:flex; justify-content:center; gap: 40px;">
-                    <button class="btn-main-action" id="btn-reset-month"
-                        style="max-width: 180px; border-color:rgba(56, 189, 248, 0.3); color:var(--cyan); font-size: 0.8rem;">
-                        <svg class="icon-svg icon-sm" style="pointer-events:none">
-                            <use href="#icon-check" />
+        <!-- MODAL: Notas -->
+        <div class="modal-overlay" id="notes-modal">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <svg class="icon-svg modal-title-icon" style="color: var(--purple);">
+                            <use href="#icon-note" />
                         </svg>
-                        Cerrar Mes
+                        Notas
+                    </div>
+                    <div class="close-btn" data-close-modal="notes-modal"><svg class="icon-svg">
+                            <use href="#icon-close" />
+                        </svg></div>
+                </div>
+                <textarea id="notes-area" class="glass-input" placeholder="Ideas rápidas..."></textarea>
+            </div>
+        </div>
+
+        <!-- MODAL: Pomodoro -->
+        <div class="modal-overlay" id="pomodoro-modal">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <svg class="icon-svg modal-title-icon">
+                            <use href="#icon-pomodoro" />
+                        </svg>
+                        Pomodoro
+                    </div>
+                    <div class="close-btn" data-close-modal="pomodoro-modal"><svg class="icon-svg">
+                            <use href="#icon-close" />
+                        </svg></div>
+                </div>
+                <div class="timer-display" id="pomo-time">25:00</div>
+                <div class="timer-controls">
+                    <button class="pomo-btn btn-start" id="pomo-btn">
+                        <svg class="icon-svg icon-sm" id="pomo-icon" fill="currentColor">
+                            <use href="#icon-play" />
+                        </svg>
+                        Iniciar
                     </button>
-                    <button class="btn-main-action" id="btn-wipe-finance"
-                        style="max-width: 180px; border-color:rgba(239, 68, 68, 0.3); color:#fca5a5; font-size: 0.8rem;">
-                        <svg class="icon-svg icon-sm" style="pointer-events:none">
+                    <button class="pomo-btn btn-reset" id="pomo-reset">
+                        <svg class="icon-svg icon-sm">
+                            <use href="#icon-reset" />
+                        </svg>
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL: Enlaces -->
+        <div class="modal-overlay" id="links-modal">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <svg class="icon-svg modal-title-icon" style="color:#f59e0b;">
+                            <use href="#icon-links" />
+                        </svg>
+                        <span id="links-modal-title">Accesos</span>
+                    </div>
+                    <div class="close-btn" data-close-modal="links-modal"><svg class="icon-svg">
+                            <use href="#icon-close" />
+                        </svg></div>
+                </div>
+
+                <!-- VIEW 1: LIST -->
+                <div id="links-view-list"
+                    style="display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 15px; width: 100%;">
+                    <div id="links-grid" style="display: contents;">
+                        <!-- JS Injected Links -->
+                    </div>
+                    <!-- Add Button -->
+                    <button class="link-card add-link-btn" id="btn-add-link"
+                        style="border: 2px dashed rgba(255,255,255,0.1); background: transparent;">
+                        <svg class="icon-svg simple-svg">
+                            <use href="#icon-plus" />
+                        </svg>
+                        <div class="link-name" style="color: #94a3b8;">Agregar</div>
+                    </button>
+                </div>
+
+                <!-- VIEW 2: FORM (Hidden by default) -->
+                <div id="links-view-form" style="display: none; flex-direction: column; gap: 12px;">
+                    <input type="text" id="link-title" class="glass-input" placeholder="Nombre (Ej: Gmail)">
+                    <input type="text" id="link-url" class="glass-input" placeholder="URL (Ej: gmail.com)">
+
+                    <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 5px;">Elige un icono:</div>
+                    <div class="icon-picker-grid">
+                        <div class="icon-option" data-icon="icon-globe"><svg class="icon-svg">
+                                <use href="#icon-globe" />
+                            </svg></div>
+                        <div class="icon-option" data-icon="icon-book"><svg class="icon-svg">
+                                <use href="#icon-book" />
+                            </svg></div>
+                        <div class="icon-option" data-icon="icon-youtube"><svg class="icon-svg">
+                                <use href="#icon-youtube" />
+                            </svg></div>
+                        <div class="icon-option" data-icon="icon-social"><svg class="icon-svg">
+                                <use href="#icon-social" />
+                            </svg></div>
+                        <div class="icon-option" data-icon="icon-shop"><svg class="icon-svg">
+                                <use href="#icon-shop" />
+                            </svg></div>
+                        <div class="icon-option" data-icon="icon-code"><svg class="icon-svg">
+                                <use href="#icon-code" />
+                            </svg></div>
+                        <div class="icon-option" data-icon="icon-gemini"><svg class="icon-svg">
+                                <use href="#icon-gemini" />
+                            </svg></div>
+                        <div class="icon-option" data-icon="icon-gmail"><svg class="icon-svg">
+                                <use href="#icon-gmail" />
+                            </svg></div>
+                        <div class="icon-option" data-icon="icon-drive"><svg class="icon-svg">
+                                <use href="#icon-drive" />
+                            </svg></div>
+                        <div class="icon-option" data-icon="icon-calendar"><svg class="icon-svg">
+                                <use href="#icon-calendar" />
+                            </svg></div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 15px;">
+                        <button id="btn-save-link" class="btn-main-action" style="flex: 2;">Guardar</button>
+                        <button id="btn-delete-link" class="btn-main-action"
+                            style="flex: 1; background: rgba(239,68,68,0.2); color: #fca5a5; border-color: rgba(239,68,68,0.3);">
+                            <svg class="icon-svg icon-sm">
+                                <use href="#icon-delete" />
+                            </svg>
+                        </button>
+                        <button id="btn-cancel-link" class="pomo-btn btn-reset" style="flex: 1;">Cancelar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- MODAL: Materias -->
+        <div class="modal-overlay" id="subjects-modal">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <svg class="icon-svg modal-title-icon" style="color:var(--cyan);">
+                            <use href="#icon-subjects" />
+                        </svg>
+                        Administrar Materias
+                    </div>
+                    <div class="close-btn" data-close-modal="subjects-modal"><svg class="icon-svg">
+                            <use href="#icon-close" />
+                        </svg></div>
+                </div>
+
+                <div
+                    style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--glass-border);">
+                    <h4 style="margin: 0; color: #cbd5e1;">Agregar Nueva Materia</h4>
+                    <input type="text" id="subj-name" class="glass-input" placeholder="Nombre Materia (ej: Historia)">
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="subj-code" class="glass-input" placeholder="Código (ej: HIS-101)"
+                            style="flex:1;">
+                        <input type="text" id="subj-room" class="glass-input" placeholder="Aula (ej: A-202)"
+                            style="flex:1;">
+                    </div>
+                    <!-- Day & Time Selection -->
+                    <div style="margin-top:5px;">
+                        <label style="font-size:0.8rem; color:#94a3b8; display:block; margin-bottom:5px;">Día:</label>
+                        <select id="subj-day" class="glass-input" style="width:100%; cursor: pointer;">
+                            <option value="1">Lunes</option>
+                            <option value="2">Martes</option>
+                            <option value="3">Miércoles</option>
+                            <option value="4">Jueves</option>
+                            <option value="5">Viernes</option>
+                            <option value="6">Sábado</option>
+                        </select>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top:5px; align-items: flex-end;">
+                        <div style="flex:1;">
+                            <label
+                                style="font-size:0.8rem; color:#94a3b8; display:block; margin-bottom:5px;">Desde:</label>
+                            <div class="time-picker-group">
+                                <input type="number" id="start-h" class="glass-input time-part" placeholder="12" min="1"
+                                    max="12">
+                                <span style="color:white; font-weight:bold;">:</span>
+                                <input type="number" id="start-m" class="glass-input time-part" placeholder="00" min="0"
+                                    max="59">
+                                <button id="start-ampm" class="ampm-toggle">AM</button>
+                            </div>
+                        </div>
+                        <div style="flex:1;">
+                            <label
+                                style="font-size:0.8rem; color:#94a3b8; display:block; margin-bottom:5px;">Hasta:</label>
+                            <div class="time-picker-group">
+                                <input type="number" id="end-h" class="glass-input time-part" placeholder="01" min="1"
+                                    max="12">
+                                <span style="color:white; font-weight:bold;">:</span>
+                                <input type="number" id="end-m" class="glass-input time-part" placeholder="00" min="0"
+                                    max="59">
+                                <button id="end-ampm" class="ampm-toggle">PM</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:15px;">
+                        <label style="font-size:0.8rem; color:#94a3b8; display:block; margin-bottom:5px;">⏰ Recordatorio
+                            (Minutos antes):</label>
+                        <input type="number" id="subj-reminder" class="glass-input" placeholder="10" min="1" max="60"
+                            value="10">
+                    </div>
+
+                    <button id="btn-save-subj" class="btn-main-action btn-income"
+                        style="width: 100%; margin-top: 15px;">
+                        <svg class="icon-svg icon-sm">
+                            <use href="#icon-plus" />
+                        </svg>
+                        Guardar Materia
+                    </button>
+
+                    <button id="btn-cancel-edit" class="btn-main-action"
+                        style="width: 100%; margin-top: 10px; display:none; background: rgba(255,255,255,0.05);">
+                        <svg class="icon-svg icon-sm">
+                            <use href="#icon-close" />
+                        </svg>
+                        Cancelar Edición
+                    </button>
+                </div>
+
+                <div style="max-height: 250px; overflow-y: auto;">
+                    <h4 style="margin: 0 0 10px 0; color: #cbd5e1;">Lista de Materias</h4>
+                    <div id="subjects-list-admin" style="display: flex; flex-direction: column; gap: 8px;">
+                        <!-- List items injected by JS -->
+                    </div>
+                    <button class="btn-main-action" id="btn-clear-schedule"
+                        style="width: 100%; margin-top: 20px; color: #ef4444; border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.1);">
+                        <svg class="icon-svg icon-sm">
                             <use href="#icon-delete" />
                         </svg>
-                        Borrar Todo
+                        Borrar Todo el Horario
                     </button>
                 </div>
-                <div style="text-align:center; font-size:0.75rem; color:#64748b; margin-top:10px;">
-                    "Cerrar Mes" guarda saldos. "Borrar Todo" reinicia a cero.
-                </div>
-            </div>
-
-            <!-- Mini Modal for Income -->
-            <div class="overlay-blur" id="income-overlay"></div>
-            <div class="mini-modal" id="income-modal">
-                <h3 style="margin:0 0 15px 0; font-size:1.1rem; text-align:center;">Registrar Ingreso</h3>
-                <input type="text" id="inc-desc" class="glass-input" placeholder="Descripción (Opcional)"
-                    style="margin-bottom:10px;">
-                <input type="number" id="inc-amount" class="glass-input" placeholder="Monto"
-                    style="margin-bottom:10px;">
-                <div style="font-size:0.8rem; color:#94a3b8; margin-bottom:10px;">Destino:</div>
-                <div class="pay-buttons-row" style="margin-bottom:15px;">
-                    <button class="btn-pay-opt opt-cash">Efectivo</button>
-                    <button class="btn-pay-opt opt-debit">Débito</button>
-                    <button class="btn-pay-opt opt-credit">Pago Crédito</button>
-                </div>
-                <button class="pomo-btn btn-reset" style="width:100%; padding:10px;">Cancelar</button>
-            </div>
-
-            <!-- Mini Modal for Expense -->
-            <div class="overlay-blur" id="expense-overlay"></div>
-            <div class="mini-modal" id="expense-modal">
-                <h3 style="margin:0 0 15px 0; font-size:1.1rem; text-align:center;">Registrar Gasto Rápido</h3>
-                <input type="text" id="exp-desc" class="glass-input" placeholder="Descripción"
-                    style="margin-bottom:10px;">
-                <input type="number" id="exp-amount" class="glass-input" placeholder="Monto"
-                    style="margin-bottom:10px;">
-                <div style="font-size:0.8rem; color:#94a3b8; margin-bottom:10px;">Pagar con:</div>
-                <div class="pay-buttons-row" style="margin-bottom:15px;">
-                    <button class="btn-pay-opt opt-cash">Efectivo</button>
-                    <button class="btn-pay-opt opt-debit">Débito</button>
-                    <button class="btn-pay-opt opt-credit">Crédito</button>
-                </div>
-                <button class="pomo-btn btn-reset" style="width:100%; padding:10px;">Cancelar</button>
-            </div>
-
-            <!-- Mini Modal for Transfer -->
-            <div class="overlay-blur" id="transfer-overlay"></div>
-            <div class="mini-modal" id="transfer-modal">
-                <h3 style="margin:0 0 15px 0; font-size:1.1rem; text-align:center;">Transferir Fondos</h3>
-                <div id="trans-label" style="font-size:0.9rem; color:#cbd5e1; margin-bottom:15px; text-align:center;">
-                </div>
-                <input type="number" id="trans-amount" class="glass-input" placeholder="Monto a transferir"
-                    style="margin-bottom:20px;">
-                <button class="pomo-btn btn-start"
-                    style="width:100%; padding:10px; margin-bottom:10px;">Confirmar</button>
-                <button class="pomo-btn btn-reset" style="width:100%; padding:10px;">Cancelar</button>
-            </div>
-
-            <!-- Mini Modal for Credit Pay -->
-            <div class="overlay-blur" id="credit-pay-overlay"></div>
-            <div class="mini-modal" id="credit-pay-modal">
-                <h3 style="margin:0 0 15px 0; font-size:1.1rem; text-align:center;">Pagar Deuda Crédito</h3>
-                <input type="text" id="cred-pay-desc" class="glass-input" placeholder="Descripción (Ej: Pago TV)"
-                    style="margin-bottom:10px;">
-                <input type="number" id="cred-pay-amount" class="glass-input" placeholder="Monto a pagar"
-                    style="margin-bottom:10px;">
-                <div style="font-size:0.8rem; color:#94a3b8; margin-bottom:10px;">Usar fondos de:</div>
-                <div class="pay-buttons-row" style="margin-bottom:15px;">
-                    <button class="btn-pay-opt opt-cash">Efectivo</button>
-                    <button class="btn-pay-opt opt-debit">Débito</button>
-                </div>
-                <button class="pomo-btn btn-reset" style="width:100%; padding:10px;">Cancelar</button>
             </div>
         </div>
-    </div>
-
-    <!-- MODAL: Notas -->
-    <div class="modal-overlay" id="notes-modal">
-        <div class="modal-window">
-            <div class="modal-header">
-                <div class="modal-title">
-                    <svg class="icon-svg modal-title-icon" style="color: var(--purple);">
-                        <use href="#icon-note" />
-                    </svg>
-                    Notas
-                </div>
-                <div class="close-btn" data-close-modal="notes-modal"><svg class="icon-svg">
-                        <use href="#icon-close" />
-                    </svg></div>
-            </div>
-            <textarea id="notes-area" class="glass-input" placeholder="Ideas rápidas..."></textarea>
-        </div>
-    </div>
-
-    <!-- MODAL: Pomodoro -->
-    <div class="modal-overlay" id="pomodoro-modal">
-        <div class="modal-window">
-            <div class="modal-header">
-                <div class="modal-title">
-                    <svg class="icon-svg modal-title-icon">
-                        <use href="#icon-pomodoro" />
-                    </svg>
-                    Pomodoro
-                </div>
-                <div class="close-btn" data-close-modal="pomodoro-modal"><svg class="icon-svg">
-                        <use href="#icon-close" />
-                    </svg></div>
-            </div>
-            <div class="timer-display" id="pomo-time">25:00</div>
-            <div class="timer-controls">
-                <button class="pomo-btn btn-start" id="pomo-btn">
-                    <svg class="icon-svg icon-sm" id="pomo-icon" fill="currentColor">
-                        <use href="#icon-play" />
-                    </svg>
-                    Iniciar
-                </button>
-                <button class="pomo-btn btn-reset" id="pomo-reset">
-                    <svg class="icon-svg icon-sm">
-                        <use href="#icon-reset" />
-                    </svg>
-                    Reset
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL: Enlaces -->
-    <div class="modal-overlay" id="links-modal">
-        <div class="modal-window">
-            <div class="modal-header">
-                <div class="modal-title">
-                    <svg class="icon-svg modal-title-icon">
-                        <use href="#icon-links" />
-                    </svg>
-                    Accesos
-                </div>
-                <div class="close-btn" data-close-modal="links-modal"><svg class="icon-svg">
-                        <use href="#icon-close" />
-                    </svg></div>
-            </div>
-            <div class="links-grid">
-                <a href="https://gemini.google.com" data-smart-url="https://gemini.google.com"
-                    data-smart-app="intent://gemini.google.com/#Intent;scheme=https;end" class="link-card">
-                    <svg class="icon-svg link-icon-svg">
-                        <use href="#icon-gemini" />
-                    </svg>
-                    <div class="link-name">Gemini</div>
-                </a>
-                <a href="https://mail.google.com" data-smart-url="https://mail.google.com"
-                    data-smart-app="intent://mail.google.com/#Intent;scheme=https;package=com.google.android.gm;end"
-                    class="link-card">
-                    <svg class="icon-svg link-icon-svg">
-                        <use href="#icon-gmail" />
-                    </svg>
-                    <div class="link-name">Gmail</div>
-                </a>
-                <a href="https://calendar.google.com" data-smart-url="https://calendar.google.com"
-                    data-smart-app="content://com.android.calendar/time/" class="link-card">
-                    <svg class="icon-svg link-icon-svg">
-                        <use href="#icon-calendar" />
-                    </svg>
-                    <div class="link-name">Calendario</div>
-                </a>
-                <a href="https://drive.google.com" data-smart-url="https://drive.google.com"
-                    data-smart-app="googledrive://" class="link-card">
-                    <svg class="icon-svg link-icon-svg">
-                        <use href="#icon-drive" />
-                    </svg>
-                    <div class="link-name">Drive</div>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL: Materias -->
-    <div class="modal-overlay" id="subjects-modal">
-        <div class="modal-window">
-            <div class="modal-header">
-                <div class="modal-title">
-                    <svg class="icon-svg modal-title-icon" style="color:var(--cyan);">
-                        <use href="#icon-subjects" />
-                    </svg>
-                    Administrar Materias
-                </div>
-                <div class="close-btn" data-close-modal="subjects-modal"><svg class="icon-svg">
-                        <use href="#icon-close" />
-                    </svg></div>
-            </div>
-
-            <div
-                style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--glass-border);">
-                <h4 style="margin: 0; color: #cbd5e1;">Agregar Nueva Materia</h4>
-                <input type="text" id="subj-name" class="glass-input" placeholder="Nombre Materia (ej: Historia)">
-                <div style="display: flex; gap: 10px;">
-                    <input type="text" id="subj-code" class="glass-input" placeholder="Código (ej: HIS-101)"
-                        style="flex:1;">
-                    <input type="text" id="subj-room" class="glass-input" placeholder="Aula (ej: A-202)"
-                        style="flex:1;">
-                </div>
-                <!-- Day & Time Selection -->
-                <div style="margin-top:5px;">
-                    <label style="font-size:0.8rem; color:#94a3b8; display:block; margin-bottom:5px;">Día:</label>
-                    <select id="subj-day" class="glass-input" style="width:100%; cursor: pointer;">
-                        <option value="1">Lunes</option>
-                        <option value="2">Martes</option>
-                        <option value="3">Miércoles</option>
-                        <option value="4">Jueves</option>
-                        <option value="5">Viernes</option>
-                        <option value="6">Sábado</option>
-                    </select>
-                </div>
-
-                <div style="display: flex; gap: 10px; margin-top:5px; align-items: flex-end;">
-                    <div style="flex:1;">
-                        <label style="font-size:0.8rem; color:#94a3b8; display:block; margin-bottom:5px;">Desde:</label>
-                        <div class="time-picker-group">
-                            <input type="number" id="start-h" class="glass-input time-part" placeholder="12" min="1"
-                                max="12">
-                            <span style="color:white; font-weight:bold;">:</span>
-                            <input type="number" id="start-m" class="glass-input time-part" placeholder="00" min="0"
-                                max="59">
-                            <button id="start-ampm" class="ampm-toggle">AM</button>
-                        </div>
-                    </div>
-                    <div style="flex:1;">
-                        <label style="font-size:0.8rem; color:#94a3b8; display:block; margin-bottom:5px;">Hasta:</label>
-                        <div class="time-picker-group">
-                            <input type="number" id="end-h" class="glass-input time-part" placeholder="01" min="1"
-                                max="12">
-                            <span style="color:white; font-weight:bold;">:</span>
-                            <input type="number" id="end-m" class="glass-input time-part" placeholder="00" min="0"
-                                max="59">
-                            <button id="end-ampm" class="ampm-toggle">PM</button>
-                        </div>
-                    </div>
-                </div>
-
-                <button id="btn-save-subj" class="btn-main-action btn-income" style="width: 100%; margin-top: 15px;">
-                    <svg class="icon-svg icon-sm">
-                        <use href="#icon-plus" />
-                    </svg>
-                    Guardar Materia
-                </button>
-
-                <button id="btn-cancel-edit" class="btn-main-action"
-                    style="width: 100%; margin-top: 10px; display:none; background: rgba(255,255,255,0.05);">
-                    <svg class="icon-svg icon-sm">
-                        <use href="#icon-close" />
-                    </svg>
-                    Cancelar Edición
-                </button>
-            </div>
-
-            <div style="max-height: 250px; overflow-y: auto;">
-                <h4 style="margin: 0 0 10px 0; color: #cbd5e1;">Lista de Materias</h4>
-                <div id="subjects-list-admin" style="display: flex; flex-direction: column; gap: 8px;">
-                    <!-- List items injected by JS -->
-                </div>
-                <button class="btn-main-action" id="btn-clear-schedule"
-                    style="width: 100%; margin-top: 20px; color: #ef4444; border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.1);">
-                    <svg class="icon-svg icon-sm">
-                        <use href="#icon-delete" />
-                    </svg>
-                    Borrar Todo el Horario
-                </button>
-            </div>
-        </div>
-    </div>
     </div>
     </div>
 
@@ -709,18 +879,40 @@
     <!-- Toast Container -->
     <div class="toast-container" id="toast-container"></div>
 
-    <div class="version-tag"
-        style="position: fixed; bottom: 5px; right: 10px; opacity: 0.5; font-size: 0.7rem; color: white; background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: 4px; pointer-events: none; z-index: 9999;">
-        WalipherOS v1.3</div>
-    <!-- SETTINGS FAB -->
-    <button id="settings-btn" class="glass-btn btn-fab" title="Configuración">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white"
-            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <use href="#icon-settings" />
-        </svg>
-    </button>
 
     <!-- SETTINGS MODAL -->
+    <!-- PERSONALIZATION MODAL -->
+    <div class="modal-overlay" id="modal-personalization">
+        <div class="modal-window">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <svg class="icon-svg modal-title-icon">
+                        <use href="#icon-palette" />
+                    </svg>
+                    Personalización
+                </div>
+                <div class="close-btn" data-close-modal="modal-personalization">
+                    <svg class="icon-svg">
+                        <use href="#icon-close" />
+                    </svg>
+                </div>
+            </div>
+
+
+            <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 5px;">Elige un tema para tu escritorio.</p>
+
+            <div class="theme-grid">
+                <!-- Theme Cards injected by JS -->
+            </div>
+
+            <button class="btn-main-action" id="btn-save-theme" style="width: 100%; margin-top: 20px;">
+                <svg class="icon-svg icon-sm">
+                    <use href="#icon-check" />
+                </svg> Guardar Preferencia
+            </button>
+        </div>
+    </div>
+
     <div id="settings-modal" class="modal">
         <div class="modal-content glass-morphism" style="max-width: 400px; padding: 25px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
@@ -747,27 +939,22 @@
                     sistema.</div>
             </div>
 
-            <!-- WEATHER SIMULATOR -->
-            <label
-                style="display:block; margin-bottom:12px; font-size:0.9rem; color:#cbd5e1; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">Simulador
-                de Clima</label>
-            <div class="weather-grid">
-                <button class="btn-option" style="border-color: var(--cyan); background: rgba(56, 189, 248, 0.1);">🔄
-                    Actual</button>
-                <button class="btn-option">☀️ Día</button>
-                <button class="btn-option">🌙 Noche</button>
-                <button class="btn-option">🌧️ Lluvia</button>
-                <button class="btn-option">⚡ Tormenta</button>
-                <button class="btn-option">🌇 Atardecer</button>
-                <button class="btn-option">🌅 Amanecer</button>
-            </div>
+
+
+
+            <button id="btn-logout" class="btn-main-action"
+                style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.5); width: 100%; margin-top: 10px; font-weight: bold;">
+                ↩ Cerrar Sesión
+            </button>
 
             <button id="btn-factory-reset" class="btn-main-action"
-                style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.5); width: 100%; margin-top: 25px; font-weight: bold;">
-                🚨 Restablecer de Fábrica (Borrar Todo)
+                style="background: rgba(239, 68, 68, 0.1); color: #faa; border: 1px solid rgba(239, 68, 68, 0.3); width: 100%; margin-top: 10px; font-size: 0.8rem;">
+                🚨 Restablecer de Fábrica (Debug)
             </button>
         </div>
     </div>
+    </div><!-- End app-dashboard -->
+
     <script type="module" src="js/script.js"></script>
 </body>
 

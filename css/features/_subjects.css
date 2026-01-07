@@ -41,10 +41,23 @@
 .card-header,
 .sub-row {
     display: grid;
-    grid-template-columns: 100px 1fr 1.5fr 1fr 50px;
+    /* Adjusted grid: Day | Time | Subject (larger) | Location | Arrow */
+    grid-template-columns: 80px 175px 1fr auto 40px;
     align-items: center;
     padding: 20px 25px;
     cursor: default;
+    gap: 15px;
+    /* Added gap for breathing room */
+}
+
+/* Ensure long text truncates if absolutely necessary */
+.subject-name {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .sub-row {
@@ -64,6 +77,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    white-space: nowrap;
+    /* Force single line */
 }
 
 .col-subject {

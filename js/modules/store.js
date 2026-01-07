@@ -1,7 +1,8 @@
-import { setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { docRef } from "./core.js";
+import { onSnapshot, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { db } from "./core.js";
+import { guardarDatoUsuario } from "./data_service.js"; // Use the service for saves
 
-// Estado Global
+// Global State
 export const state = {
     todos: [],
     schedule: [],
@@ -17,63 +18,85 @@ export const state = {
     notifications: []
 };
 
-// Sistema de Suscripciones (Observer Pattern)
+// Subscription System (Observer Pattern)
 const listeners = [];
+export const subscribe = (callback) => { listeners.push(callback); };
+const notifyListeners = () => { listeners.forEach(callback => callback(state)); };
 
-export const subscribe = (callback) => {
-    listeners.push(callback);
-};
+let activeUid = null;
 
-const notifyListeners = () => {
-    listeners.forEach(callback => callback(state));
-};
-
-// Persistencia
+// Persistence (Saves to user's 'datos_personales' subcollection)
 export const saveData = async () => {
-    try {
-        await setDoc(docRef, {
-            todos: state.todos,
-            schedule: state.schedule,
-            notes: state.notes,
-            financeData: state.financeData,
-            notifications: state.notifications
-        });
+    if (!activeUid) return;
 
-        // Cache para evitar flicker de UI
-        const hasPinned = state.todos.some(t => !t.completed);
-        localStorage.setItem('hasPinnedTasks', hasPinned);
+    // Save each category separately as requested by the "Cube" architecture
+    // users/[uid]/datos_personales/[category]
 
-    } catch (e) {
-        console.error("Error guardando en Firebase:", e);
-    }
+    await guardarDatoUsuario('todos', { list: state.todos });
+    await guardarDatoUsuario('schedule', { list: state.schedule });
+    await guardarDatoUsuario('notes', { content: state.notes });
+    await guardarDatoUsuario('finanzas', state.financeData); // SPANISH KEY
+    await guardarDatoUsuario('notifications', { list: state.notifications });
+    if (state.links) await guardarDatoUsuario('links', { list: state.links });
+    if (state.preferences) await guardarDatoUsuario('preferences', state.preferences);
+
+    // Cache UI bits
+    const hasPinned = state.todos.some(t => !t.completed);
+    localStorage.setItem('hasPinnedTasks', hasPinned);
 };
 
-// Inicialización de Datos
-export const initStore = () => {
-    console.log("Inicializando Store...");
-    onSnapshot(docRef, (docSnap) => {
-        if (docSnap.exists()) {
-            const data = docSnap.data();
+// Initialize Store for specific UID
+export const initStore = (uid) => {
+    if (!uid) return;
+    activeUid = uid;
+    console.log("📦 Inicializando Cubo de Datos para:", uid);
 
-            // Actualizar Estado
-            state.todos = data.todos || [];
-            state.schedule = data.schedule || [];
-            state.notes = data.notes || "";
+    // Listen to the entire 'datos_personales' collection for this user
+    // This allows real-time updates when any document changes
+    const colRef = collection(db, "users", uid, "datos_personales");
 
-            if (data.financeData) {
-                state.financeData = data.financeData;
-                if (!state.financeData.pendingExpenses) state.financeData.pendingExpenses = [];
-            }
-
-            if (data.notifications) {
-                state.notifications = data.notifications;
-            }
-
-            // Notificar cambios a la UI
-            notifyListeners();
+    onSnapshot(colRef, (snapshot) => {
+        if (snapshot.empty) {
+            console.log("⚠️ Nuevo usuario detectado. Creando estructura inicial...");
+            saveData(); // Save default state to create docs
         } else {
-            // Si no existe, crear doc inicial
-            saveData();
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                const category = doc.id;
+
+                // Merge data back into state based on category ID
+                if (category === 'todos') state.todos = data.list || [];
+                if (category === 'schedule') state.schedule = data.list || [];
+                if (category === 'notes') state.notes = data.content || "";
+                if (category === 'notifications') state.notifications = data.list || [];
+                if (category === 'preferences') {
+                    state.preferences = data;
+                    // Auto-apply theme if loaded
+                    if (state.preferences.theme) {
+                        import("./features/personalization.js").then(m => m.applyTheme(state.preferences.theme));
+                    }
+                }
+
+                if (category === 'finanzas') {
+                    state.financeData = data || state.financeData;
+                    // Ensure defaults
+                    if (!state.financeData.pendingExpenses) state.financeData.pendingExpenses = [];
+                }
+
+                if (category === 'profile') {
+                    if (!state.user) state.user = {};
+                    state.user.name = data.name;
+                }
+
+                if (category === 'links') {
+                    state.links = data.list || [];
+                    // Trigger render if module loaded
+                    import("./features/links.js").then(m => m.renderLinksUI());
+                }
+            });
+            notifyListeners();
         }
+    }, (error) => {
+        console.error("❌ Error en suscripción de datos:", error);
     });
 };

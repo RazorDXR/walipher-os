@@ -4,18 +4,24 @@ import { formatCurrency } from "../utils.js";
 
 let transferSource = '';
 
+const formatDate = (dateStr) => {
+    if (!dateStr) return "N/A";
+    const [y, m, d] = dateStr.split('-');
+    return `${d}/${m}`;
+};
+
+const getDueDateColor = (dateStr) => {
+    if (!dateStr) return '#94a3b8';
+    const today = new Date().toISOString().split('T')[0];
+    if (dateStr < today) return '#ef4444'; // Overdue
+    if (dateStr === today) return '#facc15'; // Today
+    return '#94a3b8'; // Future
+};
+
 export const toggleIncomeModal = () => {
     document.getElementById('income-overlay').classList.toggle('open');
     document.getElementById('income-modal').classList.toggle('open');
 };
-
-// ... (Functions in between unchaged, skipping lines for efficiency if possible, but replace tool needs context blocks)
-// Since replace_file_content works on chunks, I will target the top import and the specific lines where fmt is used.
-// But wait, 'fmt' is used in updateFinanceUI. I should replace the definition first.
-
-/* --- Logic --- */
-// fmt function definition is removed.
-
 
 export const toggleExpenseModal = () => {
     document.getElementById('expense-overlay').classList.toggle('open');
@@ -60,6 +66,7 @@ export const confirmTransfer = () => {
     });
 
     saveData();
+    updateFinanceUI(); // Optimistic Update
     document.getElementById('trans-amount').value = "";
     toggleTransferModal();
 };
@@ -95,10 +102,13 @@ export const confirmCreditPay = (source) => {
         amount: amount,
         type: 'exp',
         acc: source,
-        date: new Date().toLocaleDateString('es-DO')
+        category: 'credit_payment',
+        date: new Date().toLocaleDateString('es-DO'),
+        id: Date.now()
     });
 
     saveData();
+    updateFinanceUI(); // Optimistic Update
     document.getElementById('cred-pay-desc').value = "";
     document.getElementById('cred-pay-amount').value = "";
     toggleCreditPayModal();
@@ -115,6 +125,7 @@ export const wipeFinanceData = () => {
             pendingExpenses: []
         };
         saveData();
+        updateFinanceUI(); // Optimistic Update
         uiAlert("Reinicio Completo", "Sistema financiero restablecido.");
     }, true);
 };
@@ -124,17 +135,23 @@ export const wipeFinanceData = () => {
 export const addPendingExpense = () => {
     const desc = document.getElementById('pend-desc').value.trim();
     const amount = parseFloat(document.getElementById('pend-amount').value);
+    const dateInput = document.getElementById('pend-date').value; // YYYY-MM-DD
 
-    if (!desc || isNaN(amount) || amount <= 0) { uiAlert("Datos Incompletos", "Ingresa una descripción y un monto válido."); return; }
+    if (!desc || isNaN(amount) || amount <= 0) { uiAlert("Datos Incompletos", "Ingresa descripción y monto."); return; }
+    if (!dateInput) { uiAlert("Falta Fecha", "Por favor selecciona una fecha de vencimiento."); return; }
 
     state.financeData.pendingExpenses.push({
-        desc, amount,
-        date: new Date().toLocaleDateString('es-DO')
+        desc,
+        amount,
+        dueDate: dateInput, // Stored as YYYY-MM-DD for logic
+        createdDate: new Date().toLocaleDateString('es-DO') // Display creation date if needed
     });
 
     saveData();
+    updateFinanceUI(); // Optimistic Update
     document.getElementById('pend-desc').value = "";
     document.getElementById('pend-amount').value = "";
+    document.getElementById('pend-date').value = "";
 };
 
 export const payExpense = (index, source) => {
@@ -172,6 +189,7 @@ export const payExpense = (index, source) => {
     }
 
     saveData();
+    updateFinanceUI(); // Optimistic Update
 };
 
 export const confirmIncome = (source) => {
@@ -197,6 +215,7 @@ export const confirmIncome = (source) => {
     });
 
     saveData();
+    updateFinanceUI(); // Optimistic Update
     document.getElementById('inc-amount').value = "";
     document.getElementById('inc-desc').value = "";
     toggleIncomeModal();
@@ -221,6 +240,7 @@ export const confirmDirectExpense = (source) => {
     });
 
     saveData();
+    updateFinanceUI(); // Optimistic Update
     document.getElementById('exp-desc').value = "";
     document.getElementById('exp-amount').value = "";
     toggleExpenseModal();
@@ -229,10 +249,15 @@ export const confirmDirectExpense = (source) => {
 /* --- Render --- */
 
 export const updateFinanceUI = () => {
-    // Balances
-    const setVal = (id, val) => { document.getElementById(id).innerText = formatCurrency(val); };
-    setVal('val-cash', state.financeData.cash);
-    setVal('val-debit', state.financeData.debit);
+    // Safe update for values
+    const safeText = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = formatCurrency(val);
+    };
+
+    safeText('val-cash', state.financeData.cash);
+    safeText('val-debit', state.financeData.debit);
+    const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = formatCurrency(val); };
     setVal('val-total', state.financeData.cash + state.financeData.debit);
 
     const creditAvail = state.financeData.creditLimit - state.financeData.creditDebt;
@@ -241,41 +266,42 @@ export const updateFinanceUI = () => {
 
     // Pending List
     const pendingList = document.getElementById('pending-list');
-    pendingList.innerHTML = "";
-    let totalPending = 0;
+    if (pendingList) {
+        pendingList.innerHTML = "";
+        let totalPending = 0;
 
-    state.financeData.pendingExpenses.forEach((item, idx) => {
-        totalPending += parseFloat(item.amount);
-        const li = document.createElement('li');
-        li.className = 'pending-item';
-        li.id = `pending-item-${idx}`;
-        const carryTag = item.carried ? '<span class="carry-dot" title="Mes Anterior"></span>' : '';
+        state.financeData.pendingExpenses.forEach((item, idx) => {
+            totalPending += parseFloat(item.amount);
+            const li = document.createElement('li');
+            li.className = 'pending-item';
+            li.id = `pending-item-${idx}`;
+            const carryTag = item.carried ? '<span class="carry-dot" title="Mes Anterior"></span>' : '';
 
-        // Clean HTML: removed onclicks, added data-trigger-pay
-        li.innerHTML = `
-            <div class="pending-content-wrapper" data-action="toggle-opt" data-index="${idx}">
-                <div class="pending-info">
-                    <span class="pending-desc">${item.desc} ${carryTag}</span>
-                    <span class="pending-date">${item.date}</span>
+            li.innerHTML = `
+                <div class="pending-content-wrapper" data-action="toggle-opt" data-index="${idx}">
+                    <div class="pending-info">
+                        <span class="pending-desc">${item.desc} ${carryTag}</span>
+                        <span class="pending-date" style="color:${getDueDateColor(item.dueDate)}">Vence: ${formatDate(item.dueDate)}</span>
+                    </div>
+                    <div class="pending-cost">RD$ ${formatCurrency(item.amount)}</div>
                 </div>
-                <div class="pending-cost">RD$ ${formatCurrency(item.amount)}</div>
-            </div>
-            <div class="pay-options">
-                <div class="pay-options-title">MONTO A PAGAR:</div>
-                <input type="number" id="pay-amount-${idx}" class="glass-input" value="${item.amount}" style="margin-bottom:10px; padding:10px; font-size:0.9rem; text-align:center;">
-                <div class="pay-options-title">MÉTODO DE PAGO:</div>
-                <div class="pay-buttons-row">
-                    <button class="btn-pay-opt opt-cash" data-action="pay" data-source="cash" data-index="${idx}">💵 Efectivo</button>
-                    <button class="btn-pay-opt opt-debit" data-action="pay" data-source="debit" data-index="${idx}">💳 Débito</button>
-                    <button class="btn-pay-opt opt-credit" data-action="pay" data-source="credit" data-index="${idx}">🏦 Crédito</button>
+                <div class="pay-options">
+                    <div class="pay-options-title">MONTO A PAGAR:</div>
+                    <input type="number" id="pay-amount-${idx}" class="glass-input" value="${item.amount}" style="margin-bottom:10px; padding:10px; font-size:0.9rem; text-align:center;">
+                    <div class="pay-options-title">MÉTODO DE PAGO:</div>
+                    <div class="pay-buttons-row">
+                        <button class="btn-pay-opt opt-cash" data-action="pay" data-source="cash" data-index="${idx}">💵 Efectivo</button>
+                        <button class="btn-pay-opt opt-debit" data-action="pay" data-source="debit" data-index="${idx}">💳 Débito</button>
+                        <button class="btn-pay-opt opt-credit" data-action="pay" data-source="credit" data-index="${idx}">🏦 Crédito</button>
+                    </div>
                 </div>
-            </div>
-        `;
-        pendingList.appendChild(li);
-    });
+            `;
+            pendingList.appendChild(li);
+        });
 
-    if (document.getElementById('val-pending-total'))
-        setVal('val-pending-total', totalPending);
+        const valPending = document.getElementById('val-pending-total');
+        if (valPending) valPending.innerText = formatCurrency(totalPending);
+    }
 
     // History
     const historyList = document.getElementById('history-list');
@@ -310,6 +336,7 @@ export const resetMonth = () => {
         state.financeData.history = [];
         state.financeData.pendingExpenses.forEach(item => { item.carried = true; });
         saveData();
+        updateFinanceUI(); // Optimistic Update
     });
 };
 
@@ -321,6 +348,7 @@ export const editCreditLimit = () => {
         if (isNaN(newVal) || newVal < 0) { uiAlert("Error", "Monto inválido."); return; }
         state.financeData.creditLimit = newVal;
         saveData();
+        updateFinanceUI(); // Optimistic Update
         uiAlert("Actualizado", "Límite de crédito modificado.");
     });
 };
@@ -343,11 +371,6 @@ export const initFinanceListeners = () => {
     const incomeModal = document.getElementById('income-modal');
     if (incomeModal) {
         incomeModal.addEventListener('click', (e) => {
-            if (e.target.dataset.source) confirmIncome(e.target.dataset.source); // Requires adding data-source to buttons in HTML or here?
-            // Actually, confirmIncome expects ('cash'). buttons have onclick="confirmIncome('cash')" currently.
-            // We will refactor HTML to remove onclick, so we need to identify source.
-
-            // Let's use delegation if buttons have class
             if (e.target.classList.contains('opt-cash')) confirmIncome('cash');
             if (e.target.classList.contains('opt-debit')) confirmIncome('debit');
             if (e.target.classList.contains('opt-credit')) confirmIncome('credit');
@@ -375,9 +398,6 @@ export const initFinanceListeners = () => {
 
     // Transfer
     const transferModal = document.getElementById('transfer-modal');
-    // For openTransferModal via UI cards, we use delegation or ID
-    const cards = document.querySelectorAll('.fin-card'); // We need specific ones
-    // We'll trust data-onclick removal plan which puts ID/Class listeners.
 
     // Wire up Confirm Buttons
     click('#income-modal .btn-reset', toggleIncomeModal);
@@ -400,7 +420,7 @@ export const initFinanceListeners = () => {
         });
     }
 
-    // Cards Triggers (Manual assignment since they are specific div blocks)
+    // Cards Triggers
     click('#card-cash', () => openTransferModal('cash'));
     click('#card-debit', () => openTransferModal('debit'));
     click('#card-credit-avail', editCreditLimit);

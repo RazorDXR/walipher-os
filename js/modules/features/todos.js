@@ -31,7 +31,8 @@ export const addTodo = () => {
         text,
         completed: false,
         timestamp: now,
-        deadline: deadline
+        deadline: deadline,
+        durationTag: isLongTerm ? '7d' : '2d'
     });
 
     saveData();
@@ -88,7 +89,10 @@ export const renderTodosUI = () => {
         // Clean HTML: Data attributes for delegation
         li.innerHTML = `
             <input type="checkbox" class="custom-checkbox" ${todo.completed ? 'checked' : ''} data-action="toggle" data-index="${idx}">
-            <span class="todo-text">${todo.text}</span>
+            <span class="todo-text">
+                ${todo.text} 
+                ${todo.durationTag ? `<span style="font-size:0.7em; background:rgba(255,255,255,0.1); padding:2px 4px; border-radius:4px; margin-left:5px; color:#94a3b8;">${todo.durationTag.toUpperCase()}</span>` : ''}
+            </span>
             <span class="delete-todo" data-action="delete" data-index="${idx}">
                 <svg class="icon-svg icon-sm" style="pointer-events:none"><use href="#icon-delete"/></svg>
             </span>`;
@@ -97,7 +101,12 @@ export const renderTodosUI = () => {
         if (!todo.completed) {
             activeTasksCount++;
             const card = document.createElement('div'); card.className = 'pinned-task-card';
-            card.innerHTML = `<div class="pinned-check" data-action="toggle" data-index="${idx}">✓</div><div class="pinned-text">${todo.text}</div>`;
+            card.innerHTML = `
+                <div class="pinned-check" data-action="toggle" data-index="${idx}">✓</div>
+                <div class="pinned-text">
+                    ${todo.text}
+                    ${todo.durationTag ? `<span style="font-size:0.7em; background:rgba(255,255,255,0.1); padding:2px 4px; border-radius:4px; margin-left:5px; color:#94a3b8;">${todo.durationTag.toUpperCase()}</span>` : ''}
+                </div>`;
             pinnedList.appendChild(card);
         }
     });

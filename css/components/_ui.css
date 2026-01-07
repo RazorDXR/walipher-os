@@ -113,6 +113,59 @@
     background: rgba(0, 0, 0, 0.5);
 }
 
+/* Date Picker Icon Fix */
+::-webkit-calendar-picker-indicator {
+    /* filter: invert(1); Removed: color-scheme:dark handles this now */
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+/* Date Input Aesthetics */
+input[type="date"] {
+    position: relative;
+    padding-right: 10px;
+    color-scheme: dark;
+    /* Force browser dark theme for calendar */
+    font-family: 'JetBrains Mono', monospace;
+    /* Monospaced for alignment */
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    text-transform: uppercase;
+}
+
+input[type="date"]::-webkit-datetime-edit {
+    display: flex;
+    gap: 2px;
+}
+
+input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+    padding: 0;
+}
+
+input[type="date"]::-webkit-datetime-edit-text {
+    color: var(--cyan);
+    opacity: 0.5;
+}
+
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field {
+    color: white;
+    font-weight: 500;
+}
+
+/* Fix for focus state */
+input[type="date"]:focus::-webkit-datetime-edit-month-field,
+input[type="date"]:focus::-webkit-datetime-edit-day-field,
+input[type="date"]:focus::-webkit-datetime-edit-year-field {
+    color: var(--cyan);
+}
+
 /* Custom Select */
 select.glass-input {
     appearance: none;
