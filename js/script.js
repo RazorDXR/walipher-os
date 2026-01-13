@@ -36,10 +36,13 @@ const updateDashboard = () => {
 
 // Typewriter
 const typeElement = document.getElementById('typewriter');
-let phrase = ""; let i = 0;
+let phrase = ""; let i = 0; let typeTimeout = null;
 
 const startTyping = () => {
     if (!typeElement) return;
+    // CRITICAL: Stop any existing loop to prevent "Buenas sss Noches" glitch
+    if (typeTimeout) clearTimeout(typeTimeout);
+
     const now = new Date(); const h = now.getHours();
 
     // Get Name (Upper Case)
@@ -51,12 +54,17 @@ const startTyping = () => {
     else if (h >= 12 && h < 19) g = `BUENAS TARDES ${userName}`;
     else g = `BUENAS NOCHES ${userName}`;
 
-    phrase = g; typeElement.innerText = ""; i = 0; typeWriter();
+    phrase = g;
+    typeElement.innerText = ">_ "; // Reset clean
+    i = 0;
+    typeWriter();
 }
 
 const typeWriter = () => {
     if (i < phrase.length) {
-        typeElement.textContent += phrase.charAt(i); i++; setTimeout(typeWriter, 100);
+        typeElement.textContent += phrase.charAt(i);
+        i++;
+        typeTimeout = setTimeout(typeWriter, 100);
     }
 }
 
