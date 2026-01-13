@@ -157,11 +157,8 @@ window.addEventListener('load', () => {
                 // 3. Clear Local Storage
                 localStorage.clear();
 
-                // 4. Unregister Service Workers
-                if ('serviceWorker' in navigator) {
-                    const regs = await navigator.serviceWorker.getRegistrations();
-                    for (let reg of regs) await reg.unregister();
-                }
+                // 4. Unregister Service Workers (REMOVED)
+
 
                 // 5. Reload (No Logout)
                 // Small delay to ensure Firestore propagation
@@ -174,10 +171,7 @@ window.addEventListener('load', () => {
     const updateBtn = document.getElementById('btn-force-update');
     if (updateBtn) {
         updateBtn.addEventListener('click', async () => {
-            if ('serviceWorker' in navigator) {
-                const regs = await navigator.serviceWorker.getRegistrations();
-                for (let reg of regs) await reg.unregister();
-            }
+
             // Force reload by appending timestamp to URL (bypasses browser cache for index.html)
             const url = new URL(window.location.href);
             url.searchParams.set('force_update', Date.now());
