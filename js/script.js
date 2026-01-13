@@ -37,6 +37,7 @@ const updateDashboard = () => {
 // Typewriter
 const typeElement = document.getElementById('typewriter');
 let phrase = ""; let i = 0;
+
 const startTyping = () => {
     if (!typeElement) return;
     const now = new Date(); const h = now.getHours();
@@ -52,6 +53,7 @@ const startTyping = () => {
 
     phrase = g; typeElement.innerText = ""; i = 0; typeWriter();
 }
+
 const typeWriter = () => {
     if (i < phrase.length) {
         typeElement.textContent += phrase.charAt(i); i++; setTimeout(typeWriter, 100);
