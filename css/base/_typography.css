@@ -1,6 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
 
+html {
+    font-size: 16px;
+    /* Base Desktop */
+}
+
+@media (max-width: 700px) {
+    html {
+        font-size: 14px;
+        /* Mobile Scaling (Everything 12.5% smaller) */
+    }
+}
+
+@media (min-width: 1600px) {
+    html {
+        font-size: 18px;
+        /* High-Res Scaling (Everything 12.5% larger) */
+    }
+}
+
 body {
     font-family: 'Poppins', sans-serif;
 }

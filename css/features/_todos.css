@@ -53,19 +53,24 @@
 
 .pinned-task-card {
     /* Responsive Width */
-    flex: 1 1 250px;
+    flex: 1 1 15.625rem;
+    /* ~250px */
     /* Grow, Shrink, Basis */
-    min-width: 220px;
+    min-width: 13.75rem;
+    /* ~220px */
     max-width: 100%;
     /* Allow full width if needed */
     background: rgba(245, 158, 11, 0.1);
     border: 1px solid rgba(245, 158, 11, 0.3);
-    border-radius: 16px;
-    padding: 15px;
+    border-radius: 1rem;
+    /* 16px */
+    padding: 0.9375rem;
+    /* 15px */
     backdrop-filter: blur(12px);
     display: flex;
     align-items: flex-start;
-    gap: 10px;
+    gap: 0.625rem;
+    /* 10px */
     transition: transform 0.3s;
     position: relative;
     overflow: hidden;
@@ -76,16 +81,25 @@
         /* Mobile: Retain standard carousel/slider feel */
         flex-wrap: nowrap;
         overflow-x: auto;
+        /* CRITICAL: Ensure items start from left, not center */
+        justify-content: flex-start;
         cursor: grab;
-        padding-bottom: 10px;
-        /* Room for scroll/touch */
+        padding-bottom: 0.625rem;
+        /* 10px */
+        padding-left: 0.3125rem;
+        /* 5px */
+        padding-right: 0.3125rem;
+        /* 5px */
     }
 
     .pinned-task-card {
-        min-width: 260px;
+        min-width: 16.25rem;
+        /* ~260px */
         /* Fixed width for slider consistency */
-        max-width: 300px;
+        max-width: 18.75rem;
+        /* ~300px */
         flex: 0 0 auto;
+        /* Ensure it doesn't shrink */
     }
 }
 
