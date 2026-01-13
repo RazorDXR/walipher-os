@@ -281,8 +281,7 @@
             </svg>
         </button>
 
-        <!-- Version Tag (Moved Inside Dashboard) -->
-        <!-- Version Tag REMOVED (Duplicate) -->
+
 
         <!-- Notification Center Panel -->
         <div id="notification-panel" class="notification-panel">
@@ -895,102 +894,100 @@
                 </div>
             </div>
         </div>
-    </div>
-    </div>
 
-    <!-- Custom Dialog -->
-    <div class="overlay-blur" id="dialog-overlay"></div>
-    <div class="mini-modal" id="custom-dialog" style="z-index: 10005; text-align: center; max-width: 320px;">
-        <div id="dialog-icon" style="margin-bottom: 15px; font-size: 2rem;"></div>
-        <h3 id="dialog-title" style="margin: 0 0 10px 0; font-size: 1.1rem;"></h3>
-        <p id="dialog-msg"
-            style="color: #cbd5e1; margin-bottom: 25px; font-size: 0.9rem; line-height: 1.5; white-space: pre-wrap;">
-        </p>
-        <div id="dialog-actions" style="display: flex; gap: 10px; justify-content: center;"></div>
-    </div>
-
-    <!-- Toast Container -->
-    <div class="toast-container" id="toast-container"></div>
-
-
-    <!-- SETTINGS MODAL -->
-    <!-- PERSONALIZATION MODAL -->
-    <div class="modal-overlay" id="modal-personalization">
-        <div class="modal-window">
-            <div class="modal-header">
-                <div class="modal-title">
-                    <svg class="icon-svg modal-title-icon">
-                        <use href="#icon-palette" />
-                    </svg>
-                    Personalización
-                </div>
-                <div class="close-btn" data-close-modal="modal-personalization">
-                    <svg class="icon-svg">
-                        <use href="#icon-close" />
-                    </svg>
-                </div>
-            </div>
-
-
-            <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 5px;">Elige un tema para tu escritorio.</p>
-
-            <div class="theme-grid">
-                <!-- Theme Cards injected by JS -->
-            </div>
-
-            <button class="btn-main-action" id="btn-save-theme" style="width: 100%; margin-top: 20px;">
-                <svg class="icon-svg icon-sm">
-                    <use href="#icon-check" />
-                </svg> Guardar Preferencia
-            </button>
+        <!-- Custom Dialog -->
+        <div class="overlay-blur" id="dialog-overlay"></div>
+        <div class="mini-modal" id="custom-dialog" style="z-index: 10005; text-align: center; max-width: 320px;">
+            <div id="dialog-icon" style="margin-bottom: 15px; font-size: 2rem;"></div>
+            <h3 id="dialog-title" style="margin: 0 0 10px 0; font-size: 1.1rem;"></h3>
+            <p id="dialog-msg"
+                style="color: #cbd5e1; margin-bottom: 25px; font-size: 0.9rem; line-height: 1.5; white-space: pre-wrap;">
+            </p>
+            <div id="dialog-actions" style="display: flex; gap: 10px; justify-content: center;"></div>
         </div>
-    </div>
 
-    <div id="settings-modal" class="modal">
-        <div class="modal-content glass-morphism" style="max-width: 400px; padding: 25px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
-                <h3 style="margin:0; font-family:'JetBrains Mono'; color:var(--cyan);">Configuración</h3>
-                <span class="close-modal">&times;</span>
-            </div>
+        <!-- Toast Container -->
+        <div class="toast-container" id="toast-container"></div>
 
-            <!-- INFO SECTION -->
-            <div style="text-align:center; margin-bottom: 25px; opacity: 0.7;">
-                <div style="font-weight:bold; font-size: 1.1rem; margin-bottom:5px;">WalipherOS v1.3</div>
-                <div style="font-size: 0.8rem; color: #94a3b8;">RazorDX Edition • Build 65 (Modular)</div>
-            </div>
 
-            <!-- API CONFIG SECTION -->
-            <div class="input-group" style="margin-bottom: 25px;">
-                <label style="display:block; margin-bottom:8px; font-size:0.9rem; color:#cbd5e1;">OpenWeatherMap API
-                    Key</label>
-                <div style="display:flex; gap: 8px;">
-                    <input type="text" id="api-key-input" class="glass-input" placeholder="Pegar clave personalizada..."
-                        style="font-family:monospace; font-size:0.8rem;">
-                    <button class="btn-icon-glass">💾</button>
+
+        <!-- PERSONALIZATION MODAL -->
+        <div class="modal-overlay" id="modal-personalization">
+            <div class="modal-window">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <svg class="icon-svg modal-title-icon">
+                            <use href="#icon-palette" />
+                        </svg>
+                        Personalización
+                    </div>
+                    <div class="close-btn" data-close-modal="modal-personalization">
+                        <svg class="icon-svg">
+                            <use href="#icon-close" />
+                        </svg>
+                    </div>
                 </div>
-                <div style="font-size:0.75rem; color:#94a3b8; margin-top:5px;">Si se deja vacío, se usa la llave del
-                    sistema.</div>
+
+
+                <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 5px;">Elige un tema para tu escritorio.</p>
+
+                <div class="theme-grid">
+                    <!-- Theme Cards injected by JS -->
+                </div>
+
+                <button class="btn-main-action" id="btn-save-theme" style="width: 100%; margin-top: 20px;">
+                    <svg class="icon-svg icon-sm">
+                        <use href="#icon-check" />
+                    </svg> Guardar Preferencia
+                </button>
             </div>
-
-
-
-
-            <button id="btn-logout" class="btn-main-action"
-                style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.5); width: 100%; margin-top: 10px; font-weight: bold;">
-                ↩ Cerrar Sesión
-            </button>
-
-            <button id="btn-factory-reset" class="btn-main-action"
-                style="background: rgba(239, 68, 68, 0.1); color: #faa; border: 1px solid rgba(239, 68, 68, 0.3); width: 100%; margin-top: 10px; font-size: 0.8rem;">
-                🚨 Restablecer de Fábrica (Debug)
-            </button>
-
-            <button id="btn-force-update" class="btn-main-action"
-                style="background: rgba(56, 189, 248, 0.1); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.3); width: 100%; margin-top: 10px; font-size: 0.8rem;">
-                🔄 Forzar Actualización (Cache)
-            </button>
         </div>
-    </div>
+
+        <div id="settings-modal" class="modal">
+            <div class="modal-content glass-morphism" style="max-width: 400px; padding: 25px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+                    <h3 style="margin:0; font-family:'JetBrains Mono'; color:var(--cyan);">Configuración</h3>
+                    <span class="close-modal">&times;</span>
+                </div>
+
+                <!-- INFO SECTION -->
+                <div style="text-align:center; margin-bottom: 25px; opacity: 0.7;">
+                    <div style="font-weight:bold; font-size: 1.1rem; margin-bottom:5px;">WalipherOS v1.3</div>
+                    <div style="font-size: 0.8rem; color: #94a3b8;">RazorDX Edition • Build 65 (Modular)</div>
+                </div>
+
+                <!-- API CONFIG SECTION -->
+                <div class="input-group" style="margin-bottom: 25px;">
+                    <label style="display:block; margin-bottom:8px; font-size:0.9rem; color:#cbd5e1;">OpenWeatherMap API
+                        Key</label>
+                    <div style="display:flex; gap: 8px;">
+                        <input type="text" id="api-key-input" class="glass-input"
+                            placeholder="Pegar clave personalizada..." style="font-family:monospace; font-size:0.8rem;">
+                        <button class="btn-icon-glass">💾</button>
+                    </div>
+                    <div style="font-size:0.75rem; color:#94a3b8; margin-top:5px;">Si se deja vacío, se usa la llave del
+                        sistema.</div>
+                </div>
+
+
+
+
+                <button id="btn-logout" class="btn-main-action"
+                    style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.5); width: 100%; margin-top: 10px; font-weight: bold;">
+                    ↩ Cerrar Sesión
+                </button>
+
+                <button id="btn-factory-reset" class="btn-main-action"
+                    style="background: rgba(239, 68, 68, 0.1); color: #faa; border: 1px solid rgba(239, 68, 68, 0.3); width: 100%; margin-top: 10px; font-size: 0.8rem;">
+                    🚨 Restablecer de Fábrica (Debug)
+                </button>
+
+                <button id="btn-force-update" class="btn-main-action"
+                    style="background: rgba(56, 189, 248, 0.1); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.3); width: 100%; margin-top: 10px; font-size: 0.8rem;">
+                    🔄 Forzar Actualización (Cache)
+                </button>
+            </div>
+        </div>
     </div><!-- End app-dashboard -->
 
     <!-- Main Logic -->
