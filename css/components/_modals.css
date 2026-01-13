@@ -28,8 +28,10 @@
 
 .modal-window {
     width: 90%;
-    max-width: 500px;
     padding: 35px;
+    /* Responsive Max Width */
+    max-width: 700px;
+    /* Wider for Tablet/Desktop */
     background: rgba(20, 25, 40, 0.85);
     backdrop-filter: blur(30px) saturate(200%);
     border: 1px solid var(--glass-border);
