@@ -55,7 +55,7 @@ const startTyping = () => {
     else g = `BUENAS NOCHES ${userName}`;
 
     phrase = g;
-    typeElement.innerText = ">_ "; // Reset clean
+    typeElement.innerText = ""; // Reset clean
     i = 0;
     typeWriter();
 }

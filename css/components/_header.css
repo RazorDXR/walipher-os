@@ -2,18 +2,33 @@
 .greeting-container {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.95rem;
-    color: #94a3b8;
     margin-bottom: 5px;
     height: 1.5em;
     display: flex;
     align-items: center;
     gap: 8px;
     justify-content: center;
+
+    /* Animated Gradient */
+    background: linear-gradient(to right, #22d3ee, #a855f7, #ec4899, #22d3ee);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: greeting-shine 4s linear infinite;
+    font-weight: 600;
 }
 
 .terminal-prompt {
-    color: var(--cyan);
+    color: inherit;
+    /* Inherit gradient */
     font-weight: bold;
+}
+
+@keyframes greeting-shine {
+    to {
+        background-position: 300% center;
+    }
 }
 
 .type-text {
